@@ -1,2 +1,2 @@
 ./scripts/stop.sh
-./scripts/dev.sh
+./scripts/start.sh

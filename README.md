@@ -13,7 +13,7 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
   - If you do `docker-machine ls`, you'll see you have no machines
   - Type the folllowing. This may take a few mins. Especially if you're on NYU wifi. ha ha ha.
     ```shell
-    docker-macihne create --driver virtualbox default
+    docker-machine create --driver virtualbox default
     ```
   - Type `docker-machine ls` and you should see a default machine
   - Connect your shell to the new docker machine

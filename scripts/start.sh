@@ -1,4 +1,4 @@
 docker-compose build
-docker-compose up -d
+docker-compose up
 # docker-compose run web /usr/local/bin/python manage.py collectstatic --noinput
-docker-compose run web /usr/local/bin/python manage.py migrate
+docker-compose run --name spotica web /usr/local/bin/python manage.py migrate

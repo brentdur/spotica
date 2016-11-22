@@ -9,10 +9,12 @@ web:
   volumes:
     - /usr/src/app
     - /usr/src/app/static
+    - ./web:/usr/src/app
+    - ./web/static:/usr/src/app/static
   env_file: .env
   environment:
     DEBUG: 'true'
-  command: /usr/local/bin/gunicorn spotica.wsgi:application -w 2 -b :8000
+  command: /usr/local/bin/gunicorn spotica.wsgi:application -w 2 -b :8000 --reload
 
 nginx:
   restart: always

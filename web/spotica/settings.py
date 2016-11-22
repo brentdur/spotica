@@ -12,9 +12,16 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 from os.path import dirname, normpath, join, abspath
+from dotenv import Dotenv
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Set up environment
+dotenv_path = join(BASE_DIR, '.env')
+dotenv = Dotenv(dotenv_path)
+os.environ.update(dotenv)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
