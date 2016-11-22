@@ -1,18 +1,40 @@
-## Django Development With Docker Compose and Machine
+# Spotica
+(delete it)
 
-Featuring:
+## Setting up your dev environment
 
-- Docker v1.10.3
-- Docker Compose v1.6.2
-- Docker Machine v0.6.0
-- Python 3.5
+__Prerequisite__: Get the environment variables from Chelsea or whoever has them. This `.env` file will live in the root of our repo.
 
-Blog post -> https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/
+1. [Install docker.](https://docs.docker.com/docker-for-mac/) Make sure you do step 1 and 2 of that page.
 
-### OS X Instructions
+2. Set up your default docker machine ([Source](https://docs.docker.com/machine/get-started/))
+  - If you do `docker-machine ls`, you'll see you have no machines
+  - Type the folllowing. This may take a few mins. Especially if you're on NYU wifi. ha ha ha.
+    ```shell
+    docker-macihne create --driver virtualbox default
+    ```
+  - Type `docker-machine ls` and you should see a default machine
+  - Connect your shell to the new docker machine
+    ```shell
+    eval "$(docker-machine env default)"
+    ```
 
-1. Start new machine - `docker-machine create -d virtualbox dev;`
-1. Build images - `docker-compose build`
-1. Start services - `docker-compose up -d`
-1. Create migrations - `docker-compose run web /usr/local/bin/python manage.py migrate`
-1. Grab IP - `docker-machine ip dev` - and view in your browser
+3. Build our docker image! Yay! Do this whenever you make modifications.
+  ```shell
+  ./build.sh
+  ```
+
+4. Run it. W00t!
+  ```shell
+  ./start.sh
+  ```
+
+Alternatively, let's combine the `./build.sh` and `./start.sh` scripts in `./build-start.sh`.
+
+#### Handy commands
+
+Remove all docker containers at once (visible via `docker ps`).
+
+```shell
+docker rm --force `docker ps -qa`
+```
