@@ -5,9 +5,11 @@
 
 __Prerequisite__: Get the environment variables from Chelsea or whoever has them. This `.env` file will live in the root of our repo.
 
-1. [Install docker.](https://docs.docker.com/docker-for-mac/) Make sure you do step 1 and 2 of that page.
+1. Install node if you don't already have it.
 
-2. Set up your default docker machine ([Source](https://docs.docker.com/machine/get-started/))
+2. [Install docker.](https://docs.docker.com/docker-for-mac/) Make sure you do step 1 and 2 of that page.
+
+3. Set up your default docker machine ([Source](https://docs.docker.com/machine/get-started/))
   - If you do `docker-machine ls`, you'll see you have no machines
   - Type the folllowing. This may take a few mins. Especially if you're on NYU wifi. ha ha ha.
     ```shell
@@ -19,14 +21,9 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
     eval "$(docker-machine env default)"
     ```
 
-3. Build our docker image! Yay! Do this whenever you make modifications.
+4. Install all of the things, and build and start our docker image!
   ```shell
-  ./build.sh
-  ```
-
-4. Run it. W00t!
-  ```shell
-  ./start.sh
+  ./setup.sh
   ```
 
 5. Check which port our app is running on, and go to that in our browser to see our work!
@@ -34,8 +31,13 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
   docker-machine ip
   ```
 
-Alternatively, let's combine the `./build.sh` and `./start.sh` scripts in `./build-start.sh`.
+## In general
 
+Whenever you want to run our docker image, just use:
+
+```shell
+./start.sh
+```
 
 #### Handy commands
 
