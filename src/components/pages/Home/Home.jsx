@@ -5,7 +5,7 @@ import './style.scss';
 const Home = React.createClass({
   render() {
     return (
-      <div>Home</div>
+      <div>Home ok</div>
     );
   }
 });
