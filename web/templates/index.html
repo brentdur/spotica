@@ -1,9 +1,43 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <title>Welcomes</title>
+  <meta content="utf-8" http-equiv="encoding">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Up to 70 characters-->
+  <title>Spotica</title>
+
+  <!--Up to 155 characters-->
+  <meta name="description" content="">
+
+  <!-- Don't forget to set your site up: http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+  <meta property="og:title" content="Spotica">
+  <meta property="og:type" content="website">
+  <!--Square image-->
+  <meta property="og:image" content="">
+  <meta property="og:url" content="www.spotica.com">
+  <!--297 characters-->
+  <meta property="og:description" content="">
+
+  <meta name="theme-color" content="#2965CC">
+  <script src="{% static './app.js' %}" defer></script>
 </head>
 <body>
-Hey there
+  <div id="container"></div>
+
+  <script>
+    var staticPath = '{% static '' %}';
+  </script>
 </body>
 </html>
