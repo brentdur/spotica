@@ -1,0 +1,16 @@
+# General
+.env
+.DS_STORE
+*.map
+
+# Client-side
+node_modules
+
+# Backend
+*.py[cod]
+*.db
+__pycache__
+
+
+# Docker
+docker

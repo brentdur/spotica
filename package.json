@@ -1,0 +1,25 @@
+{
+  "name": "spotica",
+  "version": "1.0.0",
+  "description": "delete it",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brentdur/spotica.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brentdur/spotica/issues"
+  },
+  "homepage": "https://github.com/brentdur/spotica#readme",
+  "devDependencies": {
+    "jshint": "^2.9.4"
+  }
+}
