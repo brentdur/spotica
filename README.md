@@ -23,7 +23,7 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
 
 4. Install all of the things, and build and start our docker image!
   ```shell
-  ./setup.sh
+  ./scripts/setup.sh
   ```
 
 5. Check which port our app is running on, and go to that in our browser to see our work!
@@ -36,7 +36,7 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
 Whenever you want to run our docker image, just use:
 
 ```shell
-./start.sh
+./scripts/start.sh
 ```
 
 #### Handy commands
