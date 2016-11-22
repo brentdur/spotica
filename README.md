@@ -29,7 +29,13 @@ __Prerequisite__: Get the environment variables from Chelsea or whoever has them
   ./start.sh
   ```
 
+5. Check which port our app is running on, and go to that in our browser to see our work!
+  ```shell
+  docker-machine ip
+  ```
+
 Alternatively, let's combine the `./build.sh` and `./start.sh` scripts in `./build-start.sh`.
+
 
 #### Handy commands
 
