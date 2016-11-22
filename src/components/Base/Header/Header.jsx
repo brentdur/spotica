@@ -2,12 +2,12 @@ import React from 'react';
 
 import './style.scss';
 
-const Home = React.createClass({
+const Header = React.createClass({
   render() {
     return (
-      <div>Home</div>
+      <div>Header</div>
     );
   }
 });
 
-export default Home;
+export default Header;

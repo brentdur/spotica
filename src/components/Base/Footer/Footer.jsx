@@ -2,12 +2,12 @@ import React from 'react';
 
 import './style.scss';
 
-const Home = React.createClass({
+const Footer = React.createClass({
   render() {
     return (
-      <div>Home</div>
+      <div>Footer</div>
     );
   }
 });
 
-export default Home;
+export default Footer;

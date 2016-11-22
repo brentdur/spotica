@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   cache: true,
-  // devtool: "cheap-module-eval-source-map",
+  devtool: "cheap-module-eval-source-map",
   // devtool: "cheap-module-source-map",
   entry: './src/js/app.jsx',
   output: {
