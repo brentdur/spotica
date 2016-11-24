@@ -1,11 +1,24 @@
 import React from 'react';
 
+import Icon from '../../Icon/Icon';
+
 import './style.scss';
 
 const Header = React.createClass({
   render() {
     return (
-      <div>Header</div>
+      <header className="header">
+        <div className="header__container">
+          <span className="logo">
+            <Icon className="logo__image">music_note</Icon>
+            <h1 className="logo__title">Spotica</h1>
+          </span>
+          <span>
+            <Icon className="header__icon">equalizer</Icon>
+            <Icon className="header__icon">settings</Icon>
+          </span>
+        </div>
+      </header>
     );
   }
 });

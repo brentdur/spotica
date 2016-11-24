@@ -1,0 +1,44 @@
+@import '../../../css/imports';
+
+.header {
+  background-color: $primary3;
+  box-shadow: 0 1px 3px rgba($black, .5);
+  display: block;
+  left: 0;
+  padding: 8px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header__container {
+  align-items: center;
+  color: $white;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: $max-width;
+}
+
+.header__icon {
+  color: rgba($white, .8);
+  font-size: 24px;
+  transition: color .3s;
+
+  &:hover {
+    color: $white;
+  }
+
+  & + .header__icon {
+    margin-left: 24px;
+  }
+}
+
+.logo__title {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  margin-left: 8px;
+  text-transform: lowercase;
+}

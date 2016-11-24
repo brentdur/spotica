@@ -1,0 +1,16 @@
+@import '../../css/imports';
+
+body {
+  background-color: $light-grey4;
+}
+
+.mainContent {
+  background-color: $light-grey5;
+  box-shadow: 0 1px 3px rgba($black, .25);
+  display: block;
+  margin: 72px auto 0 auto;
+  max-width:$max-width;
+  min-width: $min-width;
+  padding: 24px 16px;
+  width: 80%;
+}

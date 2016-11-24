@@ -5,7 +5,9 @@ import './style.scss';
 const Footer = React.createClass({
   render() {
     return (
-      <div>Footer</div>
+      <footer className="footer">
+        Footer
+      </footer>
     );
   }
 });
