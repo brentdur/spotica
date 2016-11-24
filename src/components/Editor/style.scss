@@ -1,0 +1,29 @@
+@import '../../css/imports';
+
+.editor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin: 0 0 36px 0;
+}
+
+.editor__container {
+  background-color: $white;
+  box-shadow: 0 1px 3px rgba($black, .25);
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 12px;
+  padding: 16px;
+  width: 100%;
+}
+
+.editor__input {
+  // background-color: $green5;
+  line-height: 1.2;
+  resize: none;
+  width: 100%;
+
+  &::selection {
+    background-color: rgba($gold5, .5);
+  }
+}

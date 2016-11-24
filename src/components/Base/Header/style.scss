@@ -22,7 +22,7 @@
 
 .header__icon {
   color: rgba($white, .8);
-  font-size: 24px;
+  font-size: 18px;
   transition: color .3s;
 
   &:hover {
@@ -36,9 +36,13 @@
 
 .logo__title {
   display: inline-block;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: 3px;
   margin-left: 8px;
   text-transform: lowercase;
+}
+
+.logo__icon {
+  font-size: 18px;
 }

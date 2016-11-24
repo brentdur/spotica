@@ -1,0 +1,9 @@
+@import '../../css/imports';
+
+.feed {
+  background-color: $light-grey5;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba($black, .25);
+  display: block;
+  width: 100%;
+}

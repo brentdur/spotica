@@ -1,0 +1,27 @@
+@import '../../css/imports';
+
+.button {
+  background-color: $primary3;
+  border-radius: 2px;
+  color: $white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px 20px;
+  transition: background-color .3s box-shadow .3s;
+
+  &:hover {
+    background-color: $primary2;
+    box-shadow: 0 1px 3px rgba($black, .25);
+  }
+
+  &:active {
+    background-color: $primary1;
+  }
+}
+
+.button__icon {
+  font-size: 16px;
+  margin-right: 2px;
+  vertical-align: text-top;
+}
