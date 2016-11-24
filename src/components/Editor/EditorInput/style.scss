@@ -1,0 +1,20 @@
+@import '../../../css/imports';
+
+.editorInput__field {
+  background-color: $green5;
+  color: $dark-grey2;
+  line-height: 1.2;
+  resize: none;
+  width: 100%;
+
+  &::selection {
+    background-color: rgba($gold5, .5);
+  }
+}
+
+.editorInput__counter {
+  color: $grey4;
+  font-size: 13px;
+  padding: 4px 0 8px;
+  text-align: right;
+}

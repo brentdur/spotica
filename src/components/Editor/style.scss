@@ -16,14 +16,3 @@
   padding: 16px;
   width: 100%;
 }
-
-.editor__input {
-  // background-color: $green5;
-  line-height: 1.2;
-  resize: none;
-  width: 100%;
-
-  &::selection {
-    background-color: rgba($gold5, .5);
-  }
-}
