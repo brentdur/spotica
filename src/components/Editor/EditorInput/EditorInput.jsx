@@ -6,7 +6,10 @@ const EditorInput = React.createClass({
   componentDidMount() {
     const th = this;
 
-    th.input.addEventListener('input', th.updateCounter);
+    th.input.addEventListener('input', () => {
+      th.updateCounter();
+      th.resizeField();
+    });
 
     requestAnimationFrame(() => {
       th.initResizing();
@@ -14,6 +17,33 @@ const EditorInput = React.createClass({
   },
 
   initResizing() {
+    // Get the height of a single input line
+    // Note: textareas have two lines by default
+    this.lineHeight = this.input.offsetHeight / 2;
+
+    // this.input.rows += 1;
+  },
+
+  resizeField() {
+    const hasOverflow = () => {
+      this.input.scrollHeight > this.input.offsetHeight;
+    }
+
+    const hasUnderflow = () => {
+      this.input.scrollHeight < this.input.offsetHeight;
+    }
+
+    if (hasOverflow()) {
+      do {
+        this.input.rows += 1;
+      } while (hasOverflow());
+    }
+
+    if (hasUnderflow()) {
+      do {
+        this.input.rows -= 1;
+      } while (hasUnderflow());
+    }
   },
 
   updateCounter() {
@@ -41,6 +71,7 @@ const EditorInput = React.createClass({
         <textarea
           className="editorInput__field"
           placeholder="What's on your mind?"
+          rows={2}
           ref={ref => this.input = ref}>
         </textarea>
 
