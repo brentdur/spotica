@@ -25,24 +25,30 @@ const EditorInput = React.createClass({
   },
 
   resizeField() {
-    const hasOverflow = () => {
-      this.input.scrollHeight > this.input.offsetHeight;
-    }
-
     const hasUnderflow = () => {
-      this.input.scrollHeight < this.input.offsetHeight;
-    }
-
-    if (hasOverflow()) {
-      do {
-        this.input.rows += 1;
-      } while (hasOverflow());
+      if (!this.wordsPerLine || this.input.rows === 2) return;
+      return (this.input.value.length / (this.wordsPerLine  * this.input.rows)) < 1.2;
     }
 
     if (hasUnderflow()) {
       do {
         this.input.rows -= 1;
       } while (hasUnderflow());
+    }
+
+    const hasOverflow = () => {
+      return this.input.scrollHeight > this.input.offsetHeight;
+    }
+
+    const recalculateWordsPerLine = () => {
+      this.wordsPerLine = this.input.value.length / this.input.rows;
+    }
+
+    if (hasOverflow()) {
+      do {
+        recalculateWordsPerLine();
+        this.input.rows += 1;
+      } while (hasOverflow());
     }
   },
 
