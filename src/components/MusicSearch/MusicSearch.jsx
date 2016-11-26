@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import React from 'react';
 
+import SearchResults from './SearchResults/SearchResults';
+
 import { SPOTIFY_API } from '../../js/constants';
 import './style.scss';
 
@@ -89,35 +91,8 @@ const MusicSearch = React.createClass({
           ref={ref => this.error = ref}
           className="musicSearch__error"></p>
 
-        <div
-          ref={ref => this.results = ref }
-          className="musicSearch__results">
-          {this.state.results.map((result) => {
-            const albumCover = result.album.images[2] || {};
-            const songTitle = result.name;
-
-            // TODO: Join all artists together instead of using first
-            const artist = result.artists[0].name || '';
-
-            return (
-              <div className="musicSearch__result">
-                <img
-                  className="musicSearch__album"
-                  src={albumCover.url || ''}
-                  height={albumCover.height}
-                  width={albumCover.width} />
-
-                <p className="musicSearch__song">
-                  {songTitle}
-                </p>
-
-                <p className="musicSearch__artist">
-                  {artist}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+        <SearchResults
+          results={this.state.results} />
       </div>
     );
   }

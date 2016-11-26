@@ -1,0 +1,53 @@
+@import '../../../css/imports';
+
+.searchResults {
+  background-color: $white;
+  border-radius: 2px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.searchResult {
+  background-color: $light-grey3;
+  border-bottom: 2px solid $light-grey1;
+  border-top: 1px solid $light-grey4;
+  color: $dark-grey4;
+  padding: 8px 4px;
+
+  &:hover {
+    background-color: rgba($gold5, .5);
+    border-bottom-color: $gold5;
+    border-top-color: rgba($gold5, .2);
+  }
+}
+
+.searchResult__album,
+.searchResult__artist,
+.searchResult__song {
+  vertical-align: middle;
+}
+
+.searchResult__album {
+  background-color: $light-grey4;
+  border: none;
+  height: 32px;
+  width: 32px;
+}
+
+.searchResult__song,
+.searchResult__artist {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.searchResult__song {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.searchResult__artist {
+  font-size: 14px;
+  font-weight: 300;
+}
