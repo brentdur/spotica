@@ -1,6 +1,7 @@
 @import '../../../css/imports';
 
 .tab {
+  @include unselectable;
   background-color: $light-grey4;
   border-bottom: 1px solid $light-grey3;
   color: $grey3;

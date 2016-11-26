@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import Overlay from '../Overlay/Overlay';
 import MusicSearch from '../MusicSearch/MusicSearch';
-import SongChoice from './SongChoice/SongChoice';
+import SpotifyWidget from '../SpotifyWidget/SpotifyWidget';
 import EditorInput from './EditorInput/EditorInput';
 import PostTypes from './PostTypes/PostTypes';
 
@@ -38,8 +38,8 @@ const Editor = React.createClass({
     this.closeOverlay();
 
     const songChoice = (
-      <SongChoice
-        data={songData} />
+      <SpotifyWidget
+        uri={songData.uri} />
     );
 
     this.setState({ songChoice: songChoice });

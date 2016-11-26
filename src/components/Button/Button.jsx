@@ -24,16 +24,20 @@ const Button = React.createClass({
   },
 
   render() {
-    var classes = 'button';
+    var className = 'button';
 
     if (this.props.className) {
-      classes = this.props.className + ' button';
+      className = this.props.className + ' button';
+    }
+
+    if (this.props.compact) {
+      className = 'button-compact ' + className;
     }
 
     return (
       <button
         ref={ref => this.button = ref}
-        className={classes}>
+        className={className}>
         {this.generateIcon()}
         {this.props.children}
       </button>
