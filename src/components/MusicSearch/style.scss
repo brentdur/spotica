@@ -10,7 +10,7 @@
 
 .musicSearch__input {
   background-color: $light-grey5;
-  border-radius: 36px;
+  border-radius: 2px;
   color: $dark-grey2;
   padding: 16px;
   position: relative;
@@ -48,7 +48,7 @@
 }
 
 .musicSearch__results {
-  border-radius: 36px;
+  border-radius: 2px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   display: block;
@@ -57,9 +57,41 @@
 
 .musicSearch__result {
   background-color: $primary3;
+  border-bottom: 2px solid $primary1;
+  border-top: 1px solid $primary4;
   color: $white;
+  padding: 8px 4px;
 
   &:hover {
     background-color: $primary2;
   }
+}
+
+.musicSearch__album,
+.musicSearch__artist,
+.musicSearch__song {
+  vertical-align: middle;
+}
+
+.musicSearch__album {
+  background-color: $light-grey4;
+  border: none;
+  height: 32px;
+  width: 32px;
+}
+
+.musicSearch__song,
+.musicSearch__artist {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.musicSearch__song {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.musicSearch__artist {
+  font-size: 14px;
+  font-weight: 300;
 }
