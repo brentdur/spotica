@@ -1,13 +1,19 @@
 @import '../../css/imports';
 
 .musicSearch {
-  display: flex;
+  display: block;
+  padding: 16px 16px 32px;
+  position: relative;
+  width: 80%;
+  min-width: 600px;
 }
 
 .musicSearch__input {
   background-color: $light-grey5;
+  border-radius: 36px;
   color: $dark-grey2;
-  padding: 8px;
+  padding: 16px;
+  position: relative;
   width: 100%;
 
   &:focus {
@@ -15,6 +21,45 @@
   }
 
   &::placeholder {
-    color: $red5;
+    color: $grey1;
+  }
+}
+
+.musicSearch__error {
+  color: $red4;
+  font-size: 13px;
+  margin: 12px 0 0 16px;
+}
+
+.input-error {
+  &::after {
+    content: 'Must not be blank.';
+    display: absolute;
+    left: 0;
+    top: 5px;
+  }
+}
+
+.musicSearch-loading {}
+
+.musicSearch-loaded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.musicSearch__results {
+  border-radius: 36px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.musicSearch__result {
+  background-color: $primary3;
+  color: $white;
+
+  &:hover {
+    background-color: $primary2;
   }
 }

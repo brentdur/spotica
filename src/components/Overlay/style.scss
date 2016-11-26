@@ -1,9 +1,11 @@
 @import '../../css/imports';
 
 .overlay {
+  align-items: center;
   background-color: rgba($black, .9);
-  display: block;
+  display: flex;
   height: 100%;
+  justify-content: center;
   left: 0;
   position: fixed;
   top: 0;
