@@ -1,0 +1,20 @@
+@import '../../css/imports';
+
+.musicSearch {
+  display: flex;
+}
+
+.musicSearch__input {
+  background-color: $light-grey5;
+  color: $dark-grey2;
+  padding: 8px;
+  width: 100%;
+
+  &:focus {
+    background-color: $white;
+  }
+
+  &::placeholder {
+    color: $red5;
+  }
+}

@@ -11,6 +11,7 @@ const PostType = React.createClass({
 
     return (
       <Button
+        onClick={this.props.type.action}
         className="postType"
         icon={icon}
         iconColor="grey">

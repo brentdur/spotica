@@ -5,6 +5,12 @@ import Icon from '../Icon/Icon';
 import './style.scss';
 
 const Button = React.createClass({
+  componentDidMount() {
+    if (this.props.onClick) {
+      this.button.addEventListener('click', this.props.onClick);
+    }
+  },
+
   generateIcon() {
     if (!this.props.icon) return;
 
@@ -25,7 +31,9 @@ const Button = React.createClass({
     }
 
     return (
-      <button className={classes}>
+      <button
+        ref={ref => this.button = ref}
+        className={classes}>
         {this.generateIcon()}
         {this.props.children}
       </button>

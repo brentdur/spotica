@@ -1,33 +1,32 @@
 import React from 'react';
 
+import * as constants from '../../../js/constants';
 import './style.scss';
 
 const EditorInput = React.createClass({
   componentDidMount() {
-    const th = this;
-
-    th.input.addEventListener('input', () => {
-      th.updateCounter();
-      th.resizeField();
+    this.input.addEventListener('input', () => {
+      this.updateCounter();
+      this.resizeField();
     });
 
     requestAnimationFrame(() => {
-      th.initResizing();
+      this.initResizing();
     });
   },
 
   initResizing() {
-    // Get the height of a single input line
-    // Note: textareas have two lines by default
-    this.lineHeight = this.input.offsetHeight / 2;
-
-    // this.input.rows += 1;
+    // The height of a single input line
+    this.lineHeight = this.input.offsetHeight / this.input.size;
   },
 
   resizeField() {
     const hasUnderflow = () => {
       if (!this.wordsPerLine || this.input.rows === 2) return;
-      return (this.input.value.length / (this.wordsPerLine  * this.input.rows)) < 1.2;
+
+      const maxExpectedWordCount = this.wordsPerLine  * this.input.rows;
+
+      return (this.input.value.length / maxExpectedWordCount) < 1.2;
     }
 
     if (hasUnderflow()) {
@@ -53,16 +52,15 @@ const EditorInput = React.createClass({
   },
 
   updateCounter() {
-    // TODO: get this from a constants file
-    const MAX_POST_LENGTH = 140;
+    const MAX_POST_LEN = constants.MAX_POST_LEN;
     const currLength = this.input.value.length;
 
-    this.counter.textContent = currLength + '/' + MAX_POST_LENGTH;
+    this.counter.textContent = currLength + '/' + MAX_POST_LEN;
 
-    if (currLength > MAX_POST_LENGTH) {
+    if (currLength > MAX_POST_LEN) {
       this.counter.classList.remove('text-warning');
       this.counter.classList.add('text-error');
-    } else if (currLength/MAX_POST_LENGTH >= .9) {
+    } else if (currLength/MAX_POST_LEN >= .9) {
       this.counter.classList.add('text-warning');
       this.counter.classList.remove('text-error');
     } else {
@@ -84,7 +82,7 @@ const EditorInput = React.createClass({
         <p
           className="editorInput__counter"
           ref={ref => this.counter = ref}>
-          0/140
+          0/{constants.MAX_POST_LEN}
         </p>
       </div>
     );
