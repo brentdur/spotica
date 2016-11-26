@@ -36,15 +36,19 @@ const Feed = React.createClass({
 
     return (
       <div className="feed__emptyState">
-        <h2>There are no posts.</h2>
-        <p>Write the first post!</p>
-        <a href="">Find users</a>
+        <div className="emptyState__container">
+          <h2 className="emptyState__title">There are no posts</h2>
+          <p className="emptyState__prompt">Write the first post!</p>
+          <a
+            className="emptyState__suggestion"
+            href="">Find users</a>
+        </div>
       </div>
     );
   },
 
   filterPosts(type) {
-    console.log()
+    console.log('Filtering posts');
   },
 
   render() {
@@ -60,6 +64,7 @@ const Feed = React.createClass({
             <MusicPost />
           }
         })}
+
         {this.generateEmptyState()}
       </div>
     );

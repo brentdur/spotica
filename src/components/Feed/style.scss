@@ -11,4 +11,24 @@
 .feed__tabs {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
+
+.feed__emptyState {
+  padding: 48px 0;
+}
+
+.emptyState__container {
+  margin: 0 auto;
+  min-width: 320px;
+  width: 70%;
+}
+
+.emptyState__title {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.emptyState__prompt {}
+
+.emptyState__suggestion {}

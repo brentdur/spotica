@@ -8,6 +8,16 @@ body {
   font-family: $font-stack;
 }
 
+a {
+  color: $primary3;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary2;
+    text-decoration: underline;
+  }
+}
+
 .text-warning {
   color: $warning2;
 }
