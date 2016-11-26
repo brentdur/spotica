@@ -1,0 +1,35 @@
+@import '../../../css/imports';
+
+.songChoice {
+  border-top: 1px solid $light-grey3;
+  padding: 16px 0;
+}
+
+.songChoice__details {
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: top;
+}
+
+.songChoice__album,
+.songChoice__artist,
+.songChoice__song {
+  vertical-align: middle;
+}
+
+.songChoice__album {
+  background-color: $light-grey4;
+  height: 100px;
+  width: 100px;
+}
+
+.songChoice__song {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.songChoice__artist {
+  font-size: 14px;
+  font-weight: 300;
+}

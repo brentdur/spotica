@@ -18,7 +18,7 @@
 
   &:hover {
     background-color: rgba($gold5, .5);
-    border-bottom-color: $gold5;
+    border-bottom-color: rgba($gold5, .35);
     border-top-color: rgba($gold5, .2);
   }
 }
@@ -31,7 +31,6 @@
 
 .searchResult__album {
   background-color: $light-grey4;
-  border: none;
   height: 32px;
   width: 32px;
 }

@@ -3,6 +3,10 @@ import React from 'react';
 import './style.scss';
 
 const SearchResults = React.createClass({
+  selectResult(data) {
+    this.props.selectResult(data);
+  },
+
   render() {
     return (
       <div className="searchResults">
@@ -16,7 +20,8 @@ const SearchResults = React.createClass({
           return (
             <div
               key={i}
-              className="searchResult">
+              className="searchResult"
+              onClick={() => this.selectResult(result)}>
               <img
                 className="searchResult__album"
                 src={albumCover.url || ''}

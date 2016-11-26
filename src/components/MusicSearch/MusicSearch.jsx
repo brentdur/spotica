@@ -92,6 +92,7 @@ const MusicSearch = React.createClass({
           className="musicSearch__error"></p>
 
         <SearchResults
+          selectResult={this.props.selectResult}
           results={this.state.results} />
       </div>
     );
