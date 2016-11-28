@@ -34,6 +34,10 @@ const Button = React.createClass({
       className = 'button-compact ' + className;
     }
 
+    if (this.props.adaptive) {
+      className = 'button-adaptive ' + className;
+    }
+
     return (
       <button
         ref={ref => this.button = ref}

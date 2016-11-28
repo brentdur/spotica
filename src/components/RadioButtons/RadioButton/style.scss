@@ -1,1 +1,12 @@
 @import '../../../css/imports';
+
+.radioButton {
+  margin: 8px;
+}
+
+.radioButton__field {}
+
+.radioButton__label {
+  color: $dark-grey1;
+  margin-left: 8px;
+}
