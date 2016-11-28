@@ -38,6 +38,14 @@ const Input = React.createClass({
     return this.input.classList.contains('hidden');
   },
 
+  isBlank() {
+    return !this.input.value;
+  },
+
+  value() {
+    return this.input.value;
+  },
+
   render() {
     var className = 'input';
 

@@ -3,11 +3,16 @@ import React from 'react';
 import Input from '../../Input/Input';
 import Button from '../../Button/Button';
 import Section from '../../Section/Section';
+import FormErrors from '../../FormErrors/FormErrors';
 import RadioButtons from '../../RadioButtons/RadioButtons';
 
 import './style.scss';
 
 const Login = React.createClass({
+  getInitialState() {
+    return { errors: [] };
+  },
+
   componentDidMount() {
     this.signupToggle.addEventListener('click', this.toggleSignup);
   },
@@ -28,6 +33,42 @@ const Login = React.createClass({
     }
   },
 
+  logIn(e) {
+    // Are they logging in or signing up?
+    const inLoginMode = this.confirmPassword.isHidden();
+    const errors = [];
+
+    // General confirmations
+
+    // Are username & password not blank?
+    if (this.username.isBlank()) {
+      console.log('Username is blank')
+      errors.push('The username field is blank.');
+    }
+
+    if (this.password.isBlank()) {
+      errors.push('The password field is blank.')
+    }
+
+    if (inLoginMode) {
+    } else {
+      // Is confirm password blank?
+      if (this.confirmPassword.isBlank()) {
+        errors.push('The confirm password field is blank.');
+      }
+
+      // Do the passwords match?
+      if (this.confirmPassword.value() !== this.password.value()) {
+        errors.push('The password and password confirmation fields don\'t match.');
+      }
+    }
+
+    this.setState({ errors: errors });
+    console.log(errors);
+
+    // Login
+  },
+
   render() {
     const formOptions = [{
       text: 'I have an account',
@@ -40,6 +81,9 @@ const Login = React.createClass({
       <Section
         narrow>
         <h1>Login</h1>
+
+        <FormErrors
+          errors={this.state.errors} />
 
         <Input
           ref={ref => this.username = ref}
@@ -69,6 +113,7 @@ const Login = React.createClass({
         <Button
           ref={ref => this.submit = ref}
           className="login__submit"
+          onClick={this.logIn}
           adaptive>
           Login
         </Button>
