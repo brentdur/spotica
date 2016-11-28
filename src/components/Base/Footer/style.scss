@@ -1,8 +1,11 @@
 @import '../../../css/imports';
 
 .footer {
+  border-top: 1px solid $light-grey2;
+  color: $grey3;
   display: block;
-  padding: 8px;
-  margin: 16px auto 0 auto;
+  font-size: 14px;
+  margin: 48px auto 0 auto;
+  padding: 16px 8px 8px 8px;
   max-width: $max-width;
 }
