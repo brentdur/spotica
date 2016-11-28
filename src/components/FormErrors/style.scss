@@ -1,1 +1,21 @@
 @import '../../css/imports';
+
+.formErrors {
+  border: 1px solid $error5;
+  border-radius: 2px;
+  display: block;
+  margin: 16px 0;
+  padding: 12px 6px;
+}
+
+.formErrors__prompt {
+  font-size: 14px;
+}
+
+.formErrors__list {
+  margin: 12px 0 12px 32px;
+}
+
+.formErrors__error {
+  color: $error2;
+}

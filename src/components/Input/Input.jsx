@@ -15,6 +15,20 @@ const Input = React.createClass({
     );
   },
 
+  componentDidMount() {
+    this.field.addEventListener('keyup', (e) => {
+      // Remove errors
+      this.input.classList.remove('input-error');
+
+      if (e.keyCode === 13 && this.props.onEnter) {
+        this.props.onEnter(e);
+      }
+    });
+
+    // Should we focus on this field first?
+    if (this.props.focus) this.field.focus();
+  },
+
   generateNote() {
     if (!this.props.note) return;
 
@@ -38,12 +52,24 @@ const Input = React.createClass({
     return this.input.classList.contains('hidden');
   },
 
-  isBlank() {
-    return !this.input.value;
+  addError() {
+    if (this.input.classList.contains('input-error')) {
+      return;
+    }
+
+    this.input.classList.add('input-error');
+  },
+
+  removeError() {
+    this.input.classList.remove('input-error');
   },
 
   value() {
-    return this.input.value;
+    return this.field.value;
+  },
+
+  isBlank() {
+    return !this.field.value;
   },
 
   render() {
@@ -60,6 +86,7 @@ const Input = React.createClass({
         {this.generateLabel()}
 
         <input
+          ref={ref => this.field = ref}
           className="input__field"
           placeholder={this.props.placeholder || this.props.label || ''}
           name={this.props.name || ''}

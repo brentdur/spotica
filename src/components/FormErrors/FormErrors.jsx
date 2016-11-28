@@ -9,18 +9,23 @@ const FormErrors = React.createClass({
     }
 
     return (
-      <div>
-        <p>Your form has the following errors:</p>
+      <div className="formErrors">
+        <p className="formErrors__prompt">Your form has the following errors:</p>
 
-        <ul>
+        <ul
+          className="formErrors__list">
           {this.props.errors.map((error, i) => {
             return (
-              <li key={i}>{error}</li>
+              <li
+                key={i}
+                className="formErrors__error">
+                {error}
+              </li>
             );
           })}
         </ul>
 
-        <p>Please fix them and resubmit the form.</p>
+        <p className="formErrors__prompt">Please fix them and try again.</p>
       </div>
     );
   }

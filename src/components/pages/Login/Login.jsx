@@ -38,45 +38,47 @@ const Login = React.createClass({
     const inLoginMode = this.confirmPassword.isHidden();
     const errors = [];
 
-    // General confirmations
-
     // Are username & password not blank?
     if (this.username.isBlank()) {
-      console.log('Username is blank')
+      this.username.addError();
       errors.push('The username field is blank.');
     }
 
     if (this.password.isBlank()) {
+      this.password.addError();
       errors.push('The password field is blank.')
     }
 
-    if (inLoginMode) {
-    } else {
+    if (!inLoginMode) {
+      // Is the password 8 characters or longer?
+      if (this.confirmPassword.value().length < 8) {
+        this.confirmPassword.addError();
+        errors.push('Your password needs to be at least 8 characters long.');
+      }
+
       // Is confirm password blank?
       if (this.confirmPassword.isBlank()) {
+        this.confirmPassword.addError();
         errors.push('The confirm password field is blank.');
       }
 
       // Do the passwords match?
       if (this.confirmPassword.value() !== this.password.value()) {
+        this.confirmPassword.addError();
         errors.push('The password and password confirmation fields don\'t match.');
       }
     }
 
-    this.setState({ errors: errors });
-    console.log(errors);
+    if (errors.length === 0) {
+      // Login
+      this.props.history.push('/');
+    }
 
-    // Login
+    // Display the errors
+    this.setState({ errors: errors });
   },
 
   render() {
-    const formOptions = [{
-      text: 'I have an account',
-      checked: true,
-    }, {
-      text: 'I\'m a new user',
-    }];
-
     return (
       <Section
         narrow>
@@ -89,22 +91,26 @@ const Login = React.createClass({
           ref={ref => this.username = ref}
           label="Username"
           name="username"
-          className="login__username" />
+          className="login__username"
+          onEnter={this.logIn}
+          focus />
 
         <Input
           ref={ref => this.password = ref}
+          className="login__password"
           label="Password"
           type="password"
           name="password"
           note="Must be 8 characters or longer."
-          className="login__password" />
+          onEnter={this.logIn} />
 
         <Input
           ref={ref => this.confirmPassword = ref}
+          className="hidden login__confirmPassword"
           label="Confirm password"
           type="password"
           name="confirm_password"
-          className="hidden login__confirmPassword" />
+          onEnter={this.logIn}/>
 
         <a
           ref={ref => this.signupToggle = ref}

@@ -9,8 +9,9 @@
 }
 
 .input__label {
-  display: block;
   color: $dark-grey3;
+  display: block;
+  font-size: 14px;
   margin-bottom: 4px;
 }
 
@@ -30,10 +31,52 @@
   &::placeholder {
     color: $grey1;
   }
+
+  &::selection {
+    background-color: rgba($gold5, .5);
+  }
 }
 
 .input__note {
   color: $grey3;
   font-size: 12px;
   margin-top: 4px;
+}
+
+.input-error {
+  .input__label {
+    color: $red3;
+  }
+
+  .input__field {
+    animation: shake .3s linear;
+    background-color: rgba($error5, .25);
+  }
+
+  .input__field::placeholder {
+    color: $error4;
+  }
+}
+
+@keyframes shake {
+  0,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%, 40% {
+    transform: translateX(-10px);
+  }
+
+  30%, 60% {
+    transform: translateX(10px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  90% {
+    transform: translateX(5px);
+  }
 }
