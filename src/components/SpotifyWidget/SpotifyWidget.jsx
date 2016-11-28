@@ -8,6 +8,9 @@ const SpotifyWidget = React.createClass({
 
     return (
       <div className="spotifyWidget">
+        <p className="spotifyWidget__title">
+          Embedded song
+        </p>
         <iframe
           className="spotifyWidget__widget"
           src={songSrc}
