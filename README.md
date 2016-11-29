@@ -3,7 +3,7 @@
 
 ## Setting up your dev environment
 
-__Prerequisite__: Get the environment variables from Chelsea or whoever has them. This `.env` file will live in the root of our repo.
+__Prerequisite__: Get the environment variables from Chelsea or whoever has them. This `.env` file will live in the root of our repo, and also in the `web/` directory.
 
 1. Install node if you don't already have it.
 
