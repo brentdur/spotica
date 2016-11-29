@@ -22,10 +22,12 @@ const Header = React.createClass({
     return (
       <header className="header">
         <div className="header__container">
-          <span className="logo">
-            <Icon className="logo__icon">music_note</Icon>
-            <h1 className="logo__title">Spotica</h1>
-          </span>
+          <Link to='/'>
+            <span className="logo">
+              <Icon className="logo__icon">music_note</Icon>
+              <h1 className="logo__title">Spotica</h1>
+            </span>
+          </Link>
 
           <span>
             <Icon className="header__icon">equalizer</Icon>
