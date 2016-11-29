@@ -1,11 +1,15 @@
+import $ from 'jquery';
 import React from 'react';
+import cookie from 'react-cookie';
 
 import Input from '../../Input/Input';
 import Button from '../../Button/Button';
+import DjangoCsrfToken from '../../DjangoCsrfToken/DjangoCsrfToken';
 import Section from '../../Section/Section';
 import FormErrors from '../../FormErrors/FormErrors';
 import RadioButtons from '../../RadioButtons/RadioButtons';
 
+import { API_URL } from '../../../js/constants';
 import './style.scss';
 
 const Login = React.createClass({
@@ -34,6 +38,8 @@ const Login = React.createClass({
   },
 
   logIn(e) {
+    e.preventDefault();
+
     // Are they logging in or signing up?
     const inLoginMode = this.confirmPassword.isHidden();
     const errors = [];
@@ -69,60 +75,119 @@ const Login = React.createClass({
       }
     }
 
+    console.log(errors.length);
+
     if (errors.length === 0) {
+      const username = this.username.value();
+      const password = this.password.value();
+
       // Login
-      this.props.history.push('/');
+      console.log(inLoginMode);
+      console.log(this.csrfToken.value());
+
+      if (inLoginMode) {
+
+        // $.ajax({
+        //   type: 'POST',
+        //   datatype: 'json',
+        //   url: API_URL.LOGIN + '?username=' + username + '&password=' + password,
+        // })
+        // .done((response, status, jqXHR) => {
+        //   console.log(response);
+        //   console.log(status);
+        // // this.props.history.push('/');
+        // })
+        // .fail((jqXHR, textStatus, errorThrown) => {
+        //   console.log('Sorry, our server failed to sign you up. Please try again later!');
+        // });
+        // this.form.submit();
+
+      } else {
+        this.form.action = '/signup'
+        // this.form.submit();
+      //   const confirmPassword = this.confirmPassword.value();
+
+      //   // Sign up
+      //   $.ajax({
+      //     type: 'POST',
+      //     datatype: 'json',
+      //     data: {
+      //       username: username,
+      //       password: password,
+      //       confirm_password: confirm_password,
+      //       csrfmiddlewaretoken: this.csrfToken.value(),
+      //     },
+      //     headers: { 'X-CSRFToken': cookie.load('csrftoken') },
+      //     url: API_URL.SIGNUP,
+      //   })
+      //   .done((response, status, jqXHR) => {
+      //     console.log(response);
+      //     console.log(status);
+      //   // this.props.history.push('/');
+      //   })
+      //   .fail((jqXHR, textStatus, errorThrown) => {
+      //     console.log('Sorry, our server failed to sign you up. Please try again later!');
+      //   });
+      }
     }
 
     // Display the errors
     this.setState({ errors: errors });
+    return false;
   },
 
   render() {
     return (
       <Section
+        title="Login"
         narrow>
-        <h1>Login</h1>
-
         <FormErrors
           errors={this.state.errors} />
 
-        <Input
-          ref={ref => this.username = ref}
-          label="Username"
-          name="username"
-          className="login__username"
-          onEnter={this.logIn}
-          focus />
+        <form
+          ref={ref => this.form = ref}
+          action="/login"
+          method="POST">
+          <DjangoCsrfToken
+            ref={ref => this.csrfToken = ref} />
 
-        <Input
-          ref={ref => this.password = ref}
-          className="login__password"
-          label="Password"
-          type="password"
-          name="password"
-          note="Must be 8 characters or longer."
-          onEnter={this.logIn} />
+          <Input
+            ref={ref => this.username = ref}
+            label="Username"
+            name="username"
+            className="login__username"
+            onEnter={this.logIn}
+            focus />
 
-        <Input
-          ref={ref => this.confirmPassword = ref}
-          className="hidden login__confirmPassword"
-          label="Confirm password"
-          type="password"
-          name="confirm_password"
-          onEnter={this.logIn}/>
+          <Input
+            ref={ref => this.password = ref}
+            className="login__password"
+            label="Password"
+            type="password"
+            name="password"
+            note="Must be 8 characters or longer."
+            onEnter={this.logIn} />
 
-        <a
-          ref={ref => this.signupToggle = ref}
-          href="">I don't have an account yet.</a>
+          <Input
+            ref={ref => this.confirmPassword = ref}
+            className="hidden login__confirmPassword"
+            label="Confirm password"
+            type="password"
+            name="confirm_password"
+            onEnter={this.logIn}/>
 
-        <Button
-          ref={ref => this.submit = ref}
-          className="login__submit"
-          onClick={this.logIn}
-          adaptive>
-          Login
-        </Button>
+          <a
+            ref={ref => this.signupToggle = ref}
+            href="">I don't have an account yet.</a>
+
+          <Button
+            ref={ref => this.submit = ref}
+            className="login__submit"
+            onClick={this.logIn}
+            adaptive>
+            Login
+          </Button>
+        </form>
       </Section>
     );
   }

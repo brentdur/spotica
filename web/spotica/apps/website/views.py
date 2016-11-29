@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -35,5 +36,13 @@ def login(request):
 
 def signup(request):
     # TODO: make a profile here
+    if request.method == 'POST':
+        username = request.POST['username'].lower()
+        password = request.POST['password']
 
-    return render(request, "index.html")
+        user = User.get_or_create(username=username, password=password)
+
+    return {
+        'success': message is None,
+        'message': message
+    }
