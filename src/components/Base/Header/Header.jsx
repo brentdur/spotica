@@ -8,13 +8,25 @@ import './style.scss';
 
 const Header = React.createClass({
   generateLogin() {
+    if (isAuthenticated) {
+      return (
+        <span>
+          <Icon className="header__icon">equalizer</Icon>
+          <Icon className="header__icon">settings</Icon>
+          <Icon className="header__icon">person</Icon>
+        </span>
+      );
+    }
+
     return (
-      <Button
-        className="header__signin"
-        color="camoflauge"
-        compact>
-        Connect Spotify
-      </Button>
+      <Link to='/login'>
+        <Button
+          className="header__signin"
+          color="camoflauge"
+          compact>
+          Login
+        </Button>
+      </Link>
     );
   },
 
@@ -29,11 +41,7 @@ const Header = React.createClass({
             </span>
           </Link>
 
-          <span>
-            <Icon className="header__icon">equalizer</Icon>
-            <Icon className="header__icon">settings</Icon>
-            <Icon className="header__icon">person</Icon>
-          </span>
+          {this.generateLogin()}
         </div>
       </header>
     );
