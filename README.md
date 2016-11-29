@@ -1,6 +1,8 @@
 # Spotica
 (delete it)
 
+Project Description etc: https://docs.google.com/document/u/1/d/1FG4Z8tQ6a3p7Pjf6b2SQvWfI1qXRaTpAJRJNvclmLzU/edit?usp=drive_web
+
 ## Setting up your dev environment
 
 __Prerequisite__: Get the environment variables from Chelsea or whoever has them. This`.env` file will live in __BOTH__ the `web/` directory, and root of our repo. So you should have an env file in `/.env` and `/web/.env`.
