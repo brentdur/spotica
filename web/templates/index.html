@@ -35,8 +35,10 @@
 </head>
 <body>
   <div id="container"></div>
+  {% csrf_token %}
   <script>
     var staticPath = '{% static '' %}';
+
     var isAuthenticated = {% if user.is_authenticated %}true {% else %}false{% endif %}
   </script>
 </body>

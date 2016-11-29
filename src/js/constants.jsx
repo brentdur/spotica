@@ -3,8 +3,7 @@ export const SPOTIFY_API = {
 };
 
 export const API_URL = {
-  LOGIN: '/login',
-  SIGNUP: '/signup',
+  LOGIN: '/api/v1/users/login/',
 };
 
 export const MAX_POST_LEN = 140;

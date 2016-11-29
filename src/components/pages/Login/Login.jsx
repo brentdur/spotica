@@ -75,60 +75,29 @@ const Login = React.createClass({
       }
     }
 
-    console.log(errors.length);
-
     if (errors.length === 0) {
       const username = this.username.value();
       const password = this.password.value();
+      const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
 
-      // Login
-      console.log(inLoginMode);
-      console.log(this.csrfToken.value());
-
-      if (inLoginMode) {
-
-        // $.ajax({
-        //   type: 'POST',
-        //   datatype: 'json',
-        //   url: API_URL.LOGIN + '?username=' + username + '&password=' + password,
-        // })
-        // .done((response, status, jqXHR) => {
-        //   console.log(response);
-        //   console.log(status);
-        // // this.props.history.push('/');
-        // })
-        // .fail((jqXHR, textStatus, errorThrown) => {
-        //   console.log('Sorry, our server failed to sign you up. Please try again later!');
-        // });
-        // this.form.submit();
-
-      } else {
-        this.form.action = '/signup'
-        // this.form.submit();
-      //   const confirmPassword = this.confirmPassword.value();
-
-      //   // Sign up
-      //   $.ajax({
-      //     type: 'POST',
-      //     datatype: 'json',
-      //     data: {
-      //       username: username,
-      //       password: password,
-      //       confirm_password: confirm_password,
-      //       csrfmiddlewaretoken: this.csrfToken.value(),
-      //     },
-      //     headers: { 'X-CSRFToken': cookie.load('csrftoken') },
-      //     url: API_URL.SIGNUP,
-      //   })
-      //   .done((response, status, jqXHR) => {
-      //     console.log(response);
-      //     console.log(status);
-      //   // this.props.history.push('/');
-      //   })
-      //   .fail((jqXHR, textStatus, errorThrown) => {
-      //     console.log('Sorry, our server failed to sign you up. Please try again later!');
-      //   });
-      }
+      $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        data: {
+          username: username,
+          password: password,
+          csrfmiddlewaretoken: csrfToken,
+        },
+        url: API_URL.LOGIN,
+      })
+      .done((response, status, jqXHR) => {
+        console.log(response);
+        console.log(status);
+      // this.props.history.push('/');
+      })
+      .fail((jqXHR, textStatus, errorThrown) => {
+        console.log('Sorry, our server failed to sign you up. Please try again later!');
+      });
     }
 
     // Display the errors

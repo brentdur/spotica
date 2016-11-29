@@ -1,8 +1,10 @@
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
 def index(request):
+    # Hacky AF: remove
     return render(request, "index.html")
 
 def login(request):
@@ -34,15 +36,6 @@ def login(request):
 
     return render(request, "index.html")
 
-def signup(request):
-    # TODO: make a profile here
-    if request.method == 'POST':
-        username = request.POST['username'].lower()
-        password = request.POST['password']
-
-        user = User.get_or_create(username=username, password=password)
-
-    return {
-        'success': message is None,
-        'message': message
-    }
+def log_out(request):
+    logout(request)
+    return redirect('index')

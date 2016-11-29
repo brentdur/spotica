@@ -1,12 +1,15 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from . import views
+from .api.v1.views import UserViewSet
 
 router = routers.DefaultRouter()
+router.register(r'users/login', UserViewSet, base_name='login')
+router.register(r'users/logout', UserViewSet, base_name='logout')
 
 urlpatterns = [
-  url(r'^login', views.login, name='login'),
-  url(r'^signup', views.signup, name='signup'),
+  url(r'^logout', views.log_out, name='logout'),
+  url(r'^login', views.index, name='login'),
   url(r'^$', views.index, name='index'),
 
   # automatic URL routing for API

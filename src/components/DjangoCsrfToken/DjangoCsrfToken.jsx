@@ -3,15 +3,17 @@ import cookie from 'react-cookie';
 
 const DjangoCsrfToken = React.createClass({
   value() {
-    return cookie.load('csrftoken');
+    return this.value;
   },
 
   render() {
+    this.value = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+
     return (
       <input
         type="hidden"
         name="csrfmiddlewaretoken"
-        value={cookie.load('csrftoken')} />
+        value={this.value} />
     );
   }
 });

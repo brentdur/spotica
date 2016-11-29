@@ -6,7 +6,11 @@ const Footer = React.createClass({
   render() {
     return (
       <footer className="footer">
-        Footer
+        <a
+          ref={ref => this.logout = ref}
+          href="/logout">
+          Logout
+        </a>
       </footer>
     );
   }
