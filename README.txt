@@ -26,3 +26,13 @@ $ cd web/scalica
 $ python manage.py runserver
 
 Access the site at http://localhost:8000/micro
+
+
+# Spotica Specific
+
+## Celery
+Celery is a distributed task runner and (with celery-beat) a task scheduler. It's used to async calculate the user and global sentiments. Celery requires **redis**.
+
+To start celery: `cd web/scalica` `celery -A scalica worker -B -l info --concurrency=4`
+
+This starts celery, connected to scalica, starting a worker as well (with concurrency 4), with loglevel set to INFO and starting celery-beat.
