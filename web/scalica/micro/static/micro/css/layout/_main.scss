@@ -1,0 +1,11 @@
+body {
+  background-color: $light-grey4;
+}
+
+.mainContent {
+  display: block;
+  margin: 72px auto 0 auto;
+  max-width: $max-width;
+  min-width: $min-width;
+  width: 80%;
+}

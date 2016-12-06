@@ -2,11 +2,12 @@
 {% load staticfiles %}
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" />
-  <title>Scalica</title>
-</head> 
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'micro/css/style.css' %}" />
+  <title>Spotica</title>
+</head>
 <body>
-  <div id="header">
+  <header class="header">
     {% if user.is_authenticated %}
       {{ user.username }}
       <a href="{% url 'micro:logout' %}">Log Out</a>
@@ -14,16 +15,19 @@
       <a href="{% url 'micro:login' %}">Log In</a>
     {% endif %}
     {% block header %}{% endblock header %}
-  </div>
+  </header>
+
   <div id="sidebar">
     {% block sidebar %}{% endblock sidebar %}
   </div>
+
   <div id="content">
     {% block content %}{% endblock content %}
   </div>
-  <div id="footer">
-    <p>Copyright Scalica</p>
+
+  <footer class="footer">
+    Copyright Scalica. Created by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim)
     {% block footer %}{% endblock footer %}
-  </div>
+  </footer>
 </body>
 </html>

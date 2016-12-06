@@ -1,3 +1,7 @@
+node_modules
+.sass-cache
 *.pyc
-env/*
-migrations/
+env
+venv
+migrations
+.DS_Store
