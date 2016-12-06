@@ -43,3 +43,11 @@ class MyUserCreationForm(UserCreationForm):
     help_texts = {
       'username' : '',
     }
+
+class Song(models.Model):
+    sentiment = models.DecimalField(max_digits=30, decimal_places=15)
+    title = models.CharField(max_length=256, default="")
+    artist = models.CharField(max_length=256, default="")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    spotify_track_id = models.CharField(max_length=256, default="")
