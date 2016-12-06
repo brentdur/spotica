@@ -1,7 +1,13 @@
+# General
+.DS_Store
+
+# Front-end
 node_modules
 .sass-cache
+*.css.map
+
+# Server
 *.pyc
 env
 venv
 migrations
-.DS_Store
