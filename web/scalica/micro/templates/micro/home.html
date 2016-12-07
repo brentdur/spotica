@@ -6,6 +6,12 @@
   <img src="{% static "micro/images/user.png" %}" alt="Generic User"/>
   <br>
   <p>{{ user.username }}</p>
+
+  <div id="status">
+    {% if my_post %}
+     {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block content %}
@@ -59,41 +65,43 @@
     </form>
 
     <div class="feed">
+      <div class="feed__tabs">
+        <div class="tab tab-selected">All</div>
+        <div class="tab">You</div>
+      </div>
+
+      {% if post_list %}
+        <div class="feed__posts">
+          {% for post in post_list %}
+            <div class="post">
+              <div class="post__header">
+                <img class="post__authorPic" src="">
+                <div class="post__details">
+                  <p class="post__authorName">{{ post.user.username }}</p>
+                  <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+                </div>
+              </div>
+
+              <p class="post__text">{{ post.text }}</p>
+
+              {% if post.song %}
+              <div class="post__songWidget">
+              </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- No posts, so display empty state -->
+        <div class="feed__emptyState">
+          <div class="emptyState__container">
+            <h2 class="emptyState__title">There are no posts</h2>
+            <p class="emptyState__prompt">Write the first post!</p>
+            <a class="emptyState__suggestion" href="">Find users</a>
+          </div>
+        </div>
+      {% endif %}
     </div>
-  </div>
-
-  <div id="status">
-    {% if my_post %}
-     {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
-    {% endif %}
-  </div>
-
-  <div>
-    {% if post_list %}
-      <table id="postlist">
-        {% for post in post_list %}
-          <tr>
-            <td>
-              <img src="{% static "micro/images/user_s.png" %}" alt="Generic User"/>
-            </td>
-            <td>
-              {{ post.text }}
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <a href="{% url 'micro:stream' post.user_id %}">
-                {{ post.user.username }}
-              </a>
-              ({{ post.pub_date|naturaltime }})
-            </td>
-          </tr>
-        {% endfor %}
-      </table>
-    {% else %}
-      <p>No posts are available.</p>
-    {% endif %}
   </div>
 {% endblock %}
 

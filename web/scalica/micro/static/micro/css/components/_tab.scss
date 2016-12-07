@@ -1,0 +1,24 @@
+.tab {
+  @include unselectable;
+  background-color: $light-grey4;
+  border-bottom: 1px solid $light-grey3;
+  color: $grey3;
+  cursor: pointer;
+  display: block;
+  flex: 1;
+  padding: 8px;
+  text-transform: uppercase;
+  text-align: center;
+
+  & + .tab {
+    border-left: 2px solid $light-grey3;
+    margin-left: 1px;
+  }
+}
+
+.tab-selected {
+  background-color: $light-grey5;
+  border-bottom-color: transparent;
+  color: $grey2;
+  cursor: default;
+}

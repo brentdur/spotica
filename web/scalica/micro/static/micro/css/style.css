@@ -565,4 +565,25 @@ body {
   font-size: 14px;
   font-weight: 300; }
 
+.tab {
+  user-select: none;
+  background-color: #EBF1F5;
+  border-bottom: 1px solid #E1E8ED;
+  color: #8A9BA8;
+  cursor: pointer;
+  display: block;
+  flex: 1;
+  padding: 8px;
+  text-transform: uppercase;
+  text-align: center; }
+  .tab + .tab {
+    border-left: 2px solid #E1E8ED;
+    margin-left: 1px; }
+
+.tab-selected {
+  background-color: #F5F8FA;
+  border-bottom-color: transparent;
+  color: #738694;
+  cursor: default; }
+
 /*# sourceMappingURL=style.css.map */
