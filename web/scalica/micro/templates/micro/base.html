@@ -17,7 +17,6 @@
       </a>
 
       {% if user.is_authenticated %}
-        {{ user.username }}
         <span>
           <i class="material-icons header__icon">equalizer</i>
           <i class="material-icons header__icon">settings</i>
@@ -47,7 +46,8 @@
   </header>
 
   <div id="sidebar">
-    {% block sidebar %}{% endblock sidebar %}
+    {% block sidebar %}
+    {% endblock sidebar %}
   </div>
 
   <main class="mainContent">
@@ -56,8 +56,10 @@
   </main>
 
   <footer class="footer">
-    Copyright Scalica. Created by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim)
-    {% block footer %}{% endblock footer %}
+    &copy; Scalica 2016. Made by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim).
+
+    {% block footer %}
+    {% endblock footer %}
   </footer>
 </body>
 </html>
