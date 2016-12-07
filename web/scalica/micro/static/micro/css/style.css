@@ -250,6 +250,10 @@ body {
   padding: 16px 8px 8px 8px;
   max-width: 1200px; }
 
+.footer__links {
+  display: block;
+  margin: 12px 0; }
+
 .section {
   background-color: #fff;
   border-radius: 2px;
