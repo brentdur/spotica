@@ -10,7 +10,9 @@
 
 {% block content %}
   <div>
-    <form class="form" method="post" action="{% url 'micro:post' %}">
+    <!-- TODO: come up with a better fix for accidentally submitting form
+    on enter -->
+    <form class="form" method="post" action="{% url 'micro:post' %}" onkeypress="return event.keyCode != 13;">
       {% csrf_token %}
       <div class="editor">
         <div class="editor__container">
@@ -26,7 +28,7 @@
             <p class="editorInput__counter" id="js-editor__counter">0/140</p>
           </div>
 
-          <div class="editor__songChoice"></div>
+          <div class="editor__songChoice js-editor__songChoice"></div>
 
           <div class="postTypes">
             <button type="button" class="button postType js-musicSearch__launcher">
@@ -42,10 +44,11 @@
                 <input
                   type="text"
                   class="musicSearch__input"
+                  id="js-musicSearch__input"
                   placeholder="Search for song by name or artist" />
-                <p class="musicSearch__error"></p>
+                <p class="hidden musicSearch__error js-musicSearch__error"></p>
 
-                <div class="searchResults"></div>
+                <div class="searchResults js-musicSearch__results"></div>
               </div>
             </div>
           </div>
