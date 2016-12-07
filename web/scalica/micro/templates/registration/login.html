@@ -1,16 +1,13 @@
 {% extends "micro/base.html" %}
 
 {% block content %}
-
-
-
-{% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-  please login with an account that has access.</p>
-  {% else %}
-  <p>Please login to see this page.</p>
-  {% endif %}
+  {% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+      {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
   {% endif %}
 
   <section class="section-narrow section">
@@ -42,10 +39,8 @@
     </form>
 
     <p class="form__note">Don't have an account? <a href="/register">Register!</a></p>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    {# <p class="form__note"><a href="{% url 'micro:password_reset' %}">Lost password?</a></p> #}
   </section>
-
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  {# <p><a href="{% url 'micro:password_reset' %}">Lost password?</a></p> #}
-
-  {% endblock %}
+{% endblock %}
