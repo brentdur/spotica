@@ -8,22 +8,52 @@
 </head>
 <body>
   <header class="header">
-    {% if user.is_authenticated %}
-      {{ user.username }}
-      <a href="{% url 'micro:logout' %}">Log Out</a>
-    {% else %}
-      <a href="{% url 'micro:login' %}">Log In</a>
-    {% endif %}
-    {% block header %}{% endblock header %}
+    <div class="header__container">
+      <a href="/">
+        <span class="logo">
+          <i class="material-icons logo__icon">music_note</i>
+          <h1 class="logo__title">Spotica</h1>
+        </span>
+      </a>
+
+      {% if user.is_authenticated %}
+        {{ user.username }}
+        <span>
+          <i class="material-icons header__icon">equalizer</i>
+          <i class="material-icons header__icon">settings</i>
+          <i class="material-icons header__icon">person</i>
+        </span>
+
+        <a href="{% url 'micro:logout' %}">Log Out</a>
+      {% else %}
+        <span class="header__buttons">
+          <a href="/login">
+            <button
+              class="header__signin button-adaptive button-compact button"
+              color="adaptive">
+              Login
+            </button>
+          </a>
+          <a href="/register">
+            <button
+              class="header__signin button-adaptive button-compact button"
+              color="adaptive">
+              Register
+            </button>
+          </a>
+        </span>
+      {% endif %}
+    </div>
   </header>
 
   <div id="sidebar">
     {% block sidebar %}{% endblock sidebar %}
   </div>
 
-  <div id="content">
-    {% block content %}{% endblock content %}
-  </div>
+  <main class="mainContent">
+    {% block content %}
+    {% endblock content %}
+  </main>
 
   <footer class="footer">
     Copyright Scalica. Created by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim)
