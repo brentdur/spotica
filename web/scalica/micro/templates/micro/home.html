@@ -18,11 +18,12 @@
             <textarea
               name="text"
               class="editorInput__field"
+              id="js-editorInput__field"
               placeholder="What's on your mind?"
               rows="2"></textarea>
 
             <!-- TODO: replace max post length with a constant -->
-            <p class="editorInput__counter">0/140</p>
+            <p class="editorInput__counter" id="js-editor__counter">0/140</p>
           </div>
           <div class="editor__songChoice"></div>
           <div class="postTypes">
@@ -76,4 +77,8 @@
       <p>No posts are available.</p>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
