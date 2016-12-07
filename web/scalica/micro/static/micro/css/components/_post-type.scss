@@ -1,0 +1,16 @@
+.postType {
+  background-color: $light-grey4;
+  border-radius: 16px;
+  color: $grey2;
+  display: block;
+  font-size: 14px;
+  padding: 4px 8px;
+
+  &:hover {
+    background-color: $light-grey3;
+  }
+
+  &:active {
+    background-color: $light-grey2;
+  }
+}

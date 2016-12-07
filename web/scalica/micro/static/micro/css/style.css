@@ -281,6 +281,9 @@ body {
   margin: 16px 0;
   padding: 12px 6px; }
 
+.form {
+  width: 100%; }
+
 .form__note {
   font-size: 13px;
   padding: 16px 0;
@@ -376,5 +379,83 @@ body {
 .button-full {
   padding: 12px 24px;
   width: 100%; }
+
+.editor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin: 0 0 36px 0; }
+
+.editor__container {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(16, 22, 26, 0.25);
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 12px;
+  padding: 16px;
+  width: 100%; }
+
+.editorInput__field {
+  color: #202B33;
+  line-height: 1.2;
+  resize: none;
+  width: 100%; }
+  .editorInput__field::placeholder {
+    color: #A7B6C2 !important; }
+  .editorInput__field::selection {
+    background-color: rgba(255, 201, 64, 0.5); }
+
+.editorInput__counter {
+  color: #A7B6C2;
+  font-size: 13px;
+  padding: 4px 0 8px;
+  text-align: right; }
+
+.postType {
+  background-color: #EBF1F5;
+  border-radius: 16px;
+  color: #738694;
+  display: block;
+  font-size: 14px;
+  padding: 4px 8px; }
+  .postType:hover {
+    background-color: #E1E8ED; }
+  .postType:active {
+    background-color: #D8E1E8; }
+
+.postTypes {
+  border-top: 1px solid #E1E8ED;
+  display: block;
+  padding-top: 12px; }
+  .postTypes:disabled {
+    opacity: .5; }
+
+.songChoice {
+  border-top: 1px solid #E1E8ED;
+  padding: 16px 0; }
+
+.songChoice__details {
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: top; }
+
+.songChoice__album,
+.songChoice__artist,
+.songChoice__song {
+  vertical-align: middle; }
+
+.songChoice__album {
+  background-color: #EBF1F5;
+  height: 100px;
+  width: 100px; }
+
+.songChoice__song {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px; }
+
+.songChoice__artist {
+  font-size: 14px;
+  font-weight: 300; }
 
 /*# sourceMappingURL=style.css.map */
