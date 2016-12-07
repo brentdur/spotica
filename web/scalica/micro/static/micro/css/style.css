@@ -162,7 +162,7 @@ div {
   display: block; }
 
 .hidden {
-  display: none; }
+  display: none !important; }
 
 h1, h2, h3, h4, h5, h6, p {
   margin: 0; }
@@ -178,10 +178,10 @@ a {
     text-decoration: underline; }
 
 .text-warning {
-  color: #BF8C0A; }
+  color: #BF8C0A !important; }
 
 .text-error {
-  color: #C23030; }
+  color: #C23030 !important; }
 
 .header {
   background-color: #2965CC;
@@ -411,6 +411,71 @@ body {
   padding: 4px 0 8px;
   text-align: right; }
 
+.feed {
+  background-color: #F5F8FA;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(16, 22, 26, 0.25);
+  display: block;
+  width: 100%; }
+
+.feed__tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px; }
+
+.feed__emptyState {
+  padding: 48px 0; }
+
+.emptyState__container {
+  margin: 0 auto;
+  min-width: 320px;
+  width: 70%; }
+
+.emptyState__title {
+  font-weight: 300;
+  margin-bottom: 8px;
+  text-align: center; }
+
+.musicSearch {
+  display: block;
+  padding: 16px 16px 32px;
+  position: relative;
+  width: 80%;
+  min-width: 600px; }
+
+.musicSearch__input {
+  background-color: #F5F8FA;
+  border-radius: 2px;
+  color: #202B33;
+  padding: 16px;
+  position: relative;
+  width: 100%; }
+  .musicSearch__input:focus {
+    background-color: #fff; }
+  .musicSearch__input::placeholder {
+    color: #5C7080; }
+
+.musicSearch__error {
+  color: #F55656;
+  font-size: 13px;
+  margin: 12px 0 0 16px; }
+
+.musicSearch-loaded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid #BFCCD6; }
+
+.overlay {
+  align-items: center;
+  background-color: rgba(16, 22, 26, 0.9);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
 .postType {
   background-color: #EBF1F5;
   border-radius: 16px;
@@ -429,6 +494,48 @@ body {
   padding-top: 12px; }
   .postTypes:disabled {
     opacity: .5; }
+
+.searchResults {
+  background-color: #fff;
+  border-radius: 2px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  display: block;
+  overflow: hidden; }
+
+.searchResult {
+  background-color: #E1E8ED;
+  border-bottom: 2px solid #CED9E0;
+  border-top: 1px solid #EBF1F5;
+  color: #30404D;
+  padding: 8px 4px; }
+  .searchResult:hover {
+    background-color: rgba(255, 201, 64, 0.5);
+    border-bottom-color: rgba(255, 201, 64, 0.35);
+    border-top-color: rgba(255, 201, 64, 0.2); }
+
+.searchResult__album,
+.searchResult__artist,
+.searchResult__song {
+  vertical-align: middle; }
+
+.searchResult__album {
+  background-color: #EBF1F5;
+  height: 32px;
+  width: 32px; }
+
+.searchResult__song,
+.searchResult__artist {
+  display: inline-block;
+  margin-left: 8px; }
+
+.searchResult__song {
+  font-size: 16px;
+  font-weight: 500; }
+
+.searchResult__artist {
+  font-size: 14px;
+  font-weight: 300; }
 
 .songChoice {
   border-top: 1px solid #E1E8ED;

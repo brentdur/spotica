@@ -25,15 +25,30 @@
             <!-- TODO: replace max post length with a constant -->
             <p class="editorInput__counter" id="js-editor__counter">0/140</p>
           </div>
+
           <div class="editor__songChoice"></div>
+
           <div class="postTypes">
-            <button type="button" class="button postType">
+            <button type="button" class="button postType js-musicSearch__launcher">
               <i class="material-icons button__icon postType__icon">music_note</i>
               Add music
             </button>
           </div>
 
-          <div class="editor__overlay"></div>
+          <div class="hidden overlay editor__overlay" id="js-overlay">
+            <div class="overlay__container">
+              <!-- Music search -->
+              <div class="musicSearch">
+                <input
+                  type="text"
+                  class="musicSearch__input"
+                  placeholder="Search for song by name or artist" />
+                <p class="musicSearch__error"></p>
+
+                <div class="searchResults"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <input type="submit" class="primary button editor__submit" value="Post">
@@ -81,4 +96,6 @@
 
 {% block scripts %}
   <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% static "micro/js/music-search.js" %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% static "micro/js/overlay.js" %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
