@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'debug_toolbar',
+
+    # Third-party apps
 )
 
 MIDDLEWARE_CLASSES = (

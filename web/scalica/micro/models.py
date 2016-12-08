@@ -47,10 +47,11 @@ class MyUserCreationForm(UserCreationForm):
     }
 
 class Song(models.Model):
+  # Use Spotify track ID as the object's ID
+  spotify_id = models.CharField(primary_key=True, max_length=255)
   sentiment = models.DecimalField(max_digits=30, decimal_places=15, null=True)
-  title = models.CharField(max_length=256, default="")
+  title = models.CharField(max_length=255, default="")
   album_cover = models.URLField(max_length=2000, default="")
-  artist = models.CharField(max_length=256, default="")
+  artist = models.CharField(max_length=255, default="")
   created = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(settings.AUTH_USER_MODEL)
-  spotify_id = models.CharField(max_length=256, default="")
