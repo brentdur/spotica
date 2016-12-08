@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from micro.models import Post, Song
 from .serializers import SongSerializer, PostSerializer
 
-class PostViewSet(viewsets.PostViewSet):
+class PostViewSet(viewsets.ModelViewSet):
   """
   API endpoint for posts to be viewed/edited/created
   """

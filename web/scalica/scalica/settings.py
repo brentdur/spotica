@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
 
     # Third-party apps
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
