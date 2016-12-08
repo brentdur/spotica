@@ -153,6 +153,7 @@
     })
     .done(function (response, status, jqxhr) {
       const results = response.tracks.items;
+      console.log(results);
 
       if (results.length === 0) {
         displayError('Spotify couldn\'t find any matching songs. Sorry!');

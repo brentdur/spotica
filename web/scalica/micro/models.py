@@ -8,6 +8,7 @@ class Post(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL)
   text = models.CharField(max_length=256, default="")
   pub_date = models.DateTimeField('date_posted')
+
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text
@@ -21,6 +22,7 @@ class Following(models.Model):
   followee = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="user_followed")
   follow_date = models.DateTimeField('follow data')
+
   def __str__(self):
     return self.follower.username + "->" + self.followee.username
 
@@ -45,9 +47,10 @@ class MyUserCreationForm(UserCreationForm):
     }
 
 class Song(models.Model):
-    sentiment = models.DecimalField(max_digits=30, decimal_places=15)
-    title = models.CharField(max_length=256, default="")
-    artist = models.CharField(max_length=256, default="")
-    timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    spotify_track_id = models.CharField(max_length=256, default="")
+  sentiment = models.DecimalField(max_digits=30, decimal_places=15, null=True)
+  title = models.CharField(max_length=256, default="")
+  album_cover = models.URLField(max_length=2000, default="")
+  artist = models.CharField(max_length=256, default="")
+  created = models.DateTimeField(auto_now_add=True)
+  user = models.ForeignKey(settings.AUTH_USER_MODEL)
+  spotify_id = models.CharField(max_length=256, default="")
