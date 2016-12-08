@@ -54,4 +54,3 @@ class Song(models.Model):
   album_cover = models.URLField(max_length=2000, default="")
   artist = models.CharField(max_length=255, default="")
   created = models.DateTimeField(auto_now_add=True)
-  user = models.ForeignKey(settings.AUTH_USER_MODEL)
