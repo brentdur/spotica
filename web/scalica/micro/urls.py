@@ -2,12 +2,12 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import include, url
 from . import views
 from rest_framework import routers
-from micro.api.v1.views import PostViewSet, SongViewSet
+from micro.api.v1.views import PostViewSet, SongPostViewSet
 
 # Fill out API routes
 router = routers.DefaultRouter()
-router.register(r'songs', SongViewSet, base_name='songs')
 router.register(r'posts', PostViewSet, base_name='posts')
+router.register(r'song_posts', SongPostViewSet, base_name='song_posts')
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

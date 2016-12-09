@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
-from micro.models import Post, Song
-from .serializers import SongSerializer, PostSerializer
+from micro.models import Post, SongPost
+from .serializers import PostSerializer, SongPostSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
   """
@@ -11,9 +11,9 @@ class PostViewSet(viewsets.ModelViewSet):
   queryset = Post.objects.all()
   serializer_class = PostSerializer
 
-class SongViewSet(viewsets.ModelViewSet):
+class SongPostViewSet(viewsets.ModelViewSet):
   """
-  API endpoint for songs to be viewed/edited/created
+  API endpoint for song posts
   """
-  queryset = Song.objects.all()
-  serializer_class = SongSerializer
+  queryset = SongPost.objects.all()
+  serializer_class = SongPostSerializer
