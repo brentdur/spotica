@@ -7,7 +7,7 @@ from django.forms import ModelForm, TextInput
 class Post(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL)
   text = models.CharField(max_length=256, default="")
-  pub_date = models.DateTimeField('date_posted')
+  pub_date = models.DateTimeField('date_posted', auto_now_add=True)
 
   def __str__(self):
     if len(self.text) < 16:
@@ -47,4 +47,4 @@ class MyUserCreationForm(UserCreationForm):
     }
 
 class SongPost(Post):
-  spotify_track_id = models.CharField(primary_key=True, max_length=255)
+  spotify_uri = models.CharField(max_length=255)

@@ -10,6 +10,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     fields = ('id', 'user', 'text', 'pub_date',)
 
 class SongPostSerializer(serializers.HyperlinkedModelSerializer):
+  user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
   class Meta:
     model = SongPost
-    fields = ('id', 'user', 'text', 'pub_date', 'spotify_track_id',)
+    fields = ('spotify_uri', 'user', 'text', 'pub_date', 'spotify_uri',)

@@ -79,6 +79,7 @@
       artist.textContent = artistName;
       songDetails.appendChild(artist);
       songChoice.appendChild(songDetails);
+      songChoice.setAttribute('data-uri', result.uri)
 
       // Add it to the song choice display
       const songChoiceHolders = document.getElementsByClassName('js-editor__songChoice');
@@ -121,9 +122,6 @@
         artistName.textContent = artistData.name;
 
         searchResult.appendChild(artistName);
-
-        // Save the data to the HTML element
-        searchResult.setAttribute('data-uri', result.uri);
 
         // Add it to the search results
         searchResultsEl.appendChild(searchResult);

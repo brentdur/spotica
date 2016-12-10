@@ -115,6 +115,18 @@ DATABASES = {
 # Database routers go here:
 # DATABASE_ROUTERS = ['micro.routers.UserRouter']
 
+# Our API
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 50,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # First try OAuth. Then see if logged in.
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'EST'
