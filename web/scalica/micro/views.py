@@ -67,20 +67,23 @@ def register(request):
 #####################
 @login_required
 def home(request):
-  '''List of recent posts by people I follow'''
+  '''List of recent posts by people I follow and myself'''
   try:
     my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
   except IndexError:
     my_post = None
+
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]
   post_list = Post.objects.filter(
-      user_id__in=follows).order_by('-pub_date')[0:10]
+      user_id__in=follows + [request.user.id]).order_by('-pub_date')[0:25]
+
   context = {
     'post_list': post_list,
     'my_post' : my_post,
     'post_form' : PostForm
   }
+
   return render(request, 'micro/home.html', context)
 
 # Allows to post something and shows my most recent posts.
