@@ -71,20 +71,20 @@
         <div class="feed__posts">
           {% for post in post_list %}
             <div class="post">
-              <div class="post__header">
-                <img class="post__authorPic" src="">
-                <div class="post__details">
-                  <p class="post__authorName">{{ post.user.username }}</p>
-                  <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+              <img class="post__authorPic" src="">
+
+              <div class="post__body">
+                <a href="#" class="post__authorName">{{ post.user.username }}</a>
+                <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+
+
+                <p class="post__text">{{ post.text }}</p>
+
+                {% if post.song %}
+                <div class="post__songWidget">
                 </div>
+                {% endif %}
               </div>
-
-              <p class="post__text">{{ post.text }}</p>
-
-              {% if post.song %}
-              <div class="post__songWidget">
-              </div>
-              {% endif %}
             </div>
           {% endfor %}
         </div>
