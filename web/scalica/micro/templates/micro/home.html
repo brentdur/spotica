@@ -77,11 +77,11 @@
                 <a href="#" class="post__authorName">{{ post.user.username }}</a>
                 <p class="post__published">{{ post.pub_date|naturaltime }}</p>
 
-
                 <p class="post__text">{{ post.text }}</p>
 
-                {% if post.song %}
+                {% if post.spotify_uri %}
                 <div class="post__songWidget">
+                  <iframe src="https://embed.spotify.com/?uri={{post.spotify_uri}}" width="420" height="80" frameborder="0" allowtransparency="true"></iframe>
                 </div>
                 {% endif %}
               </div>

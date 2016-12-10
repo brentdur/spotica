@@ -5,7 +5,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
+from operator import attrgetter
+from itertools import chain
+from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm, SongPost
 
 
 # Anonymous views
@@ -75,8 +77,16 @@ def home(request):
 
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]
-  post_list = Post.objects.filter(
-      user_id__in=follows + [request.user.id]).order_by('-pub_date')[0:25]
+
+  # Get a list of text and songs posts, sorted by date
+  song_posts = SongPost.objects.filter(user_id__in=follows + [request.user.id])
+  song_post_ids = [post.id for post in song_posts]
+  text_posts = Post.objects.filter(user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
+
+  post_list = sorted(
+    chain(set().union(text_posts, song_posts)),
+    key=attrgetter('pub_date'),
+    reverse=True)
 
   context = {
     'post_list': post_list,

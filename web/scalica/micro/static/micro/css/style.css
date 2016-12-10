@@ -514,6 +514,9 @@ body {
   color: #202B33;
   font-size: 14px; }
 
+.post__songWidget {
+  margin-top: 16px; }
+
 .postType {
   background-color: #EBF1F5;
   border-radius: 16px;
