@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^post/$', views.post, name='post'),
     url(r'^follow/$', views.follow, name='follow'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^global_sentiment/$', views.global_sentiment, name='global_sentiment'),
 
     # Automatic URL routing for our API
     url(r'^api/v1/', include('rest_framework.urls', namespace='rest_framework')),
