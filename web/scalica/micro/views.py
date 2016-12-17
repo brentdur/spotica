@@ -5,19 +5,22 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
+from operator import attrgetter
+from itertools import chain
+from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm, SongPost
 
 
 # Anonymous views
-#################
 def index(request):
   if request.user.is_authenticated():
     return home(request)
   else:
     return anon_home(request)
 
+
 def anon_home(request):
   return render(request, 'micro/public.html')
+
 
 def stream(request, user_id):
   # See if to present a 'follow' button
@@ -41,11 +44,12 @@ def stream(request, user_id):
     # If page is out of range (e.g. 9999), deliver last page of results.
     posts = paginator.page(paginator.num_pages)
   context = {
-    'posts' : posts,
-    'stream_user' : user,
-    'form' : form,
+    'posts': posts,
+    'stream_user': user,
+    'form': form,
   }
   return render(request, 'micro/stream.html', context)
+
 
 def register(request):
   if request.method == 'POST':
@@ -61,29 +65,45 @@ def register(request):
     return home(request)
   else:
     form = MyUserCreationForm
-  return render(request, 'micro/register.html', {'form' : form})
+  return render(request, 'micro/register.html', {'form': form})
 
 # Authenticated views
 #####################
+
+
 @login_required
 def home(request):
-  '''List of recent posts by people I follow'''
+  '''List of recent posts by people I follow and myself'''
   try:
     my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
   except IndexError:
     my_post = None
+
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]
-  post_list = Post.objects.filter(
-      user_id__in=follows).order_by('-pub_date')[0:10]
+
+  # Get a list of text and songs posts, sorted by date
+  song_posts = SongPost.objects.filter(user_id__in=follows + [request.user.id])
+  song_post_ids = [post.id for post in song_posts]
+  text_posts = Post.objects.filter(
+      user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
+
+  post_list = sorted(
+    chain(set().union(text_posts, song_posts)),
+    key=attrgetter('pub_date'),
+    reverse=True)
+
   context = {
     'post_list': post_list,
-    'my_post' : my_post,
-    'post_form' : PostForm
+    'my_post': my_post,
+    'post_form': PostForm
   }
+
   return render(request, 'micro/home.html', context)
 
 # Allows to post something and shows my most recent posts.
+
+
 @login_required
 def post(request):
   if request.method == 'POST':
@@ -95,7 +115,8 @@ def post(request):
     return home(request)
   else:
     form = PostForm
-  return render(request, 'micro/post.html', {'form' : form})
+  return render(request, 'micro/post.html', {'form': form})
+
 
 @login_required
 def follow(request):
@@ -108,4 +129,8 @@ def follow(request):
     return home(request)
   else:
     form = FollowingForm
-  return render(request, 'micro/follow.html', {'form' : form})
+  return render(request, 'micro/follow.html', {'form': form})
+
+@login_required
+def global_sentiment(request):
+    return render(request, 'micro/global_sentiment.html', {})

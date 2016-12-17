@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block sidebar %}
-  <img src="{% static "micro/images/user.png" %}" alt="Generic User"/>
+<!--   <img src="{% static "micro/images/user.png" %}" alt="Generic User"/>
   <br>
   <p>{{ user.username }}</p>
 
@@ -11,58 +11,55 @@
     {% if my_post %}
      {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
     {% endif %}
-  </div>
+  </div> -->
 {% endblock %}
 
 {% block content %}
   <div>
     <!-- TODO: come up with a better fix for accidentally submitting form
     on enter -->
-    <form class="form" method="post" action="{% url 'micro:post' %}" onkeypress="return event.keyCode != 13;">
-      {% csrf_token %}
-      <div class="editor">
-        <div class="editor__container">
-          <div class="editor__input">
-            <textarea
-              name="text"
-              class="editorInput__field"
-              id="js-editorInput__field"
-              placeholder="What's on your mind?"
-              rows="2"></textarea>
+    <div class="editor">
+      <div class="editor__container">
+        <div class="editor__input">
+          <textarea
+            name="text"
+            class="editorInput__field"
+            id="js-editorInput__field"
+            placeholder="What's on your mind?"
+            rows="2"></textarea>
 
-            <!-- TODO: replace max post length with a constant -->
-            <p class="editorInput__counter" id="js-editor__counter">0/140</p>
-          </div>
+          <!-- TODO: replace max post length with a constant -->
+          <p class="editorInput__counter" id="js-editor__counter">0/140</p>
+        </div>
 
-          <div class="editor__songChoice js-editor__songChoice"></div>
+        <div class="editor__songChoice js-editor__songChoice"></div>
 
-          <div class="postTypes">
-            <button type="button" class="button postType js-musicSearch__launcher">
-              <i class="material-icons button__icon postType__icon">music_note</i>
-              Add music
-            </button>
-          </div>
+        <div class="postTypes">
+          <button type="button" class="button postType js-musicSearch__launcher">
+            <i class="material-icons button__icon postType__icon">music_note</i>
+            Add music
+          </button>
+        </div>
 
-          <div class="hidden overlay editor__overlay" id="js-overlay">
-            <div class="overlay__container">
-              <!-- Music search -->
-              <div class="musicSearch">
-                <input
-                  type="text"
-                  class="musicSearch__input"
-                  id="js-musicSearch__input"
-                  placeholder="Search for song by name or artist" />
-                <p class="hidden musicSearch__error js-musicSearch__error"></p>
+        <div class="hidden overlay editor__overlay" id="js-overlay">
+          <div class="overlay__container">
+            <!-- Music search -->
+            <div class="musicSearch">
+              <input
+                type="text"
+                class="musicSearch__input"
+                id="js-musicSearch__input"
+                placeholder="Search for song by name or artist" />
+              <p class="hidden musicSearch__error js-musicSearch__error"></p>
 
-                <div class="searchResults js-musicSearch__results"></div>
-              </div>
+              <div class="searchResults js-musicSearch__results"></div>
             </div>
           </div>
         </div>
-
-        <input type="submit" class="primary button editor__submit" value="Post">
       </div>
-    </form>
+
+      <input type="submit" class="primary button editor__submit js-editor__submit" value="Post">
+    </div>
 
     <div class="feed">
       <div class="feed__tabs">
@@ -74,20 +71,20 @@
         <div class="feed__posts">
           {% for post in post_list %}
             <div class="post">
-              <div class="post__header">
-                <img class="post__authorPic" src="">
-                <div class="post__details">
-                  <p class="post__authorName">{{ post.user.username }}</p>
-                  <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+              <img class="post__authorPic" src="">
+
+              <div class="post__body">
+                <a href="#" class="post__authorName">{{ post.user.username }}</a>
+                <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+
+                <p class="post__text">{{ post.text }}</p>
+
+                {% if post.spotify_uri %}
+                <div class="post__songWidget">
+                  <iframe src="https://embed.spotify.com/?uri={{post.spotify_uri}}" width="420" height="80" frameborder="0" allowtransparency="true"></iframe>
                 </div>
+                {% endif %}
               </div>
-
-              <p class="post__text">{{ post.text }}</p>
-
-              {% if post.song %}
-              <div class="post__songWidget">
-              </div>
-              {% endif %}
             </div>
           {% endfor %}
         </div>
@@ -106,7 +103,7 @@
 {% endblock %}
 
 {% block scripts %}
-  <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8"></script>
-  <script src="{% static "micro/js/music-search.js" %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8" defer></script>
+  <script src="{% static "micro/js/music-search.js" %}" type="text/javascript" charset="utf-8" defer></script>
   <script src="{% static "micro/js/overlay.js" %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

@@ -476,6 +476,47 @@ body {
   top: 0;
   width: 100%; }
 
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 8px; }
+  .post + .post {
+    border-top: 1px solid #E1E8ED; }
+
+.post__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1; }
+
+.post__authorPic {
+  background-color: #E1E8ED;
+  border-radius: 2px;
+  display: block;
+  height: 50px;
+  margin-right: 12px;
+  width: 50px; }
+
+.post__details {
+  display: block;
+  width: 100%; }
+
+.post__authorName {
+  font-size: 16px;
+  font-weight: 500; }
+
+.post__published {
+  color: #8A9BA8;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 6px; }
+
+.post__text {
+  color: #202B33;
+  font-size: 14px; }
+
+.post__songWidget {
+  margin-top: 16px; }
+
 .postType {
   background-color: #EBF1F5;
   border-radius: 16px;
