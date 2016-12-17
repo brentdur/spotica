@@ -122,3 +122,7 @@ def follow(request):
   else:
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form' : form})
+
+
+  def global_sentiment(request):
+      return render(request, 'micro/global_sentiment.html', {})
