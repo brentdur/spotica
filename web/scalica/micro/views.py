@@ -11,7 +11,6 @@ from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
 
 
 # Anonymous views
-#################
 def index(request):
   if request.user.is_authenticated():
     return home(request)
