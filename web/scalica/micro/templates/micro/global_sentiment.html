@@ -1,0 +1,8 @@
+{% extends "micro/base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+
+{% block scripts %}
+  <script src="{% static "micro/js/global-sentiment.js" %}" type="text/javascript" charset="utf-8" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% endblock %}
