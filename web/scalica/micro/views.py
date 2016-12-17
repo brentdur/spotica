@@ -132,5 +132,6 @@ def follow(request):
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form': form})
 
+@login_required
 def global_sentiment(request):
     return render(request, 'micro/global_sentiment.html', {})
