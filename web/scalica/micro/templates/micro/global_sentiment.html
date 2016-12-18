@@ -2,7 +2,12 @@
 {% load humanize %}
 {% load staticfiles %}
 
-{% block scripts %}
-  <script src="{% static "micro/js/global-sentiment.js" %}" type="text/javascript" charset="utf-8" defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% block content %}
+  <div id="ufo-sightings">
+  </div>
+
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <script type="text/javascript" src='/static/micro/js/d3.min.js' charset='utf-8'></script>
+ <script type="text/javascript" src="/static/micro/js/metricsgraphics.js" charset="utf-8"></script>
+ <script type="text/javascript" src="/static/micro/js/global-sentiment-display.js" type="text/javascript" charset="utf-8" defer></script>
 {% endblock %}
