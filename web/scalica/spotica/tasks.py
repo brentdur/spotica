@@ -55,9 +55,13 @@ def update_global_timeseries():
 	hour = 0
 
 
-def calculate_hourly_sentiment():
+def calculate_hourly_sentiment(current):
 	# make array of all SongPosts made in the last hour
-	startdate = datetime.now() - timedelta(hours=1, minutes=2)
+	if current is None:
+		now = datetime.now()
+	else:
+		now = current
+	startdate = now - timedelta(hours=1, minutes=2)
 	array_of_songs = SongPost.objects.filter(pub_date__gt=startdate)
 	count = 0
 	array_of_sentiments = []

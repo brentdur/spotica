@@ -6,6 +6,8 @@ from freezegun import freeze_time
 import spotipy
 import os
 
+from spotica import tasks
+
 names = ['amy', 'bob', 'cat', 'dom', 'egor', 'freddy', 'geoffry', 'hector', 'inigo', 'jake', 'kyle']
 users = []
 spotify_track_ids = []
@@ -28,3 +30,18 @@ for x in range(0, 7):
 		song = random.choice(spotify_track_ids)
 		SongPost.objects.create(user=user, text="blah blah blah", spotify_uri=song)
 	current = current - timedelta(days = 1)
+
+
+while current < datetime.now():
+	freeze_time(current)
+
+	tasks.calculate_hourly_sentiment(current)
+
+	current = current + timedelta(hours=1)
+
+
+
+# Create your tasks here
+
+
+# This task will be triggered when a user plays a son

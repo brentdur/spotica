@@ -44,6 +44,8 @@ class Song(object):
         self.__make_url()
         try:
             doc = lxml.html.parse(self.url)
+            if len(doc.getroot().cssselect('.lyricbox')) == 0:
+                return None
             lyricbox = doc.getroot().cssselect('.lyricbox')[0]
         except IOError:
             self.lyric = ''
