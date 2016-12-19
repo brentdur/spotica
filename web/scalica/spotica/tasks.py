@@ -9,8 +9,21 @@ import logging
 import spotipy
 import datetime
 
-# This task will be triggered when a user plays a song
+# Initialize our django application for this external usage
+from django.core.wsgi import get_wsgi_application
+import sys
+import os
 
+# Add the parent directory to the system path at runtime
+sys.path.append('../')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "scalica.settings")
+
+# Load in the application to be able to access the models
+application = get_wsgi_application()
+
+from micro.models import Post, SongPost
+
+# This task will be triggered when a user plays a song
 
 @shared_task
 def run_analysis_on_song(spotify_uri):
@@ -47,6 +60,7 @@ def update_user_timeseries(user_id):
 # This task will be triggered once per hour as a celery-beat task
 @shared_task
 def update_global_timeseries():
+	calculate_hour_sentiment()
 	hour = 0
 	# TODO: call calculate_hour_sentiment
 	average_sentiment = 0
@@ -59,9 +73,7 @@ def calculate_hourly_sentiment():
 	# TODO: make array of all SongPosts in one hour
 	array_of_sentiments = []
 	time_range = datetime.now() - timedelta(hours=1)
-	array_of_sentiments = SongPost.objects.filter(created__lt=time_range)
-	print(array_of_sentiments)
-	# TODO: access database
+	array_of_songs = SongPost.objects.filter(created__lt=time_range)
 
 # CACHE - temporary location
 
