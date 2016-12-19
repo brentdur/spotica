@@ -66,11 +66,7 @@ def update_global_timeseries():
 	calculate_hour_sentiment()
 	hour = 0
 	# TODO: call calculate_hour_sentiment
-	average_sentiment = 0
-	# TODO: store hour and sentiment in two variables
-	# TODO: append these two variables to JSON file
-	return
-	# insert either function call or code here
+
 
 def calculate_hourly_sentiment():
 	# make array of all SongPosts made in the last hour
@@ -92,13 +88,14 @@ def calculate_hourly_sentiment():
 		total += sentiment
 	average_sentiment = total / (len(array_of_sentiments))
 	# ADD TO THE JSON file
-	to_add_to_json = {str(startdate): average_sentiment}
-	data = {}
+	to_add_to_json = {"time": str(startdate), "sentiment": average_sentiment}
+	data = []
 	with open('global_sentiment.json') as f:
 	    data = json.load(f)
-	data.update(to_add_to_json)
+	data.append(to_add_to_json)
 	with open('global_sentiment.json', 'w') as f:
 	    json.dump(data, f)
+
 
 
 
