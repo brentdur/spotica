@@ -4,6 +4,9 @@ from . import views
 from rest_framework import routers
 from micro.api.v1.views import PostViewSet, SongPostViewSet
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 # Fill out API routes
 router = routers.DefaultRouter()
 router.register(r'posts', PostViewSet, base_name='posts')
@@ -24,4 +27,4 @@ urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
 
     url('^', include('django.contrib.auth.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

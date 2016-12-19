@@ -83,7 +83,7 @@ def calculate_hourly_sentiment():
 	print(total)
 	average_sentiment = total / (len(array_of_sentiments))
 	# ADD TO THE JSON file
-	to_add_to_json = {"time": str(startdate), "sentiment": average_sentiment}
+	to_add_to_json = {"time": startdate.strftime("%Y-%m-%dT%H:%M:%S"), "sentiment": average_sentiment}
 	data = []
 	path = settings.MEDIA_ROOT + 'global_sentiment.json'
 	with open(path) as f:

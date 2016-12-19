@@ -8,6 +8,7 @@ from django.utils import timezone
 from operator import attrgetter
 from itertools import chain
 from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm, SongPost
+import json
 
 
 # Anonymous views
@@ -131,6 +132,9 @@ def follow(request):
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form': form})
 
+from django.conf import settings
+
 @login_required
 def global_sentiment(request):
-    return render(request, 'micro/global_sentiment.html', {})
+    media_url = json.dumps(settings.MEDIA_URL + "global_sentiment.json")
+    return render(request, 'micro/global_sentiment.html', {'file': media_url})
