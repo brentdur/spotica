@@ -9,6 +9,8 @@ $(document).ready(function() {
             width: 650,
             height: 150,
             target: '#ufo-sightings',
+            // x_accessor: 'year',
+            // y_accessor: 'sightings',
             x_accessor: 'time',
             y_accessor: 'sentiment',
             markers: [{
