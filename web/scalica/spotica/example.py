@@ -3,6 +3,19 @@ from analysisFlow.analysis import Sentiment
 from analysisFlow.lyrics import Song
 from datetime import datetime
 from datetime import timedelta
+
+# Initialize our django application for this external usage
+from django.core.wsgi import get_wsgi_application
+import sys
+import os
+
+# Add the parent directory to the system path at runtime
+sys.path.append('../')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "scalica.settings")
+
+# Load in the application to be able to access the models
+application = get_wsgi_application()
+
 from micro.models import Post, SongPost
 
 sp = spotipy.Spotify()
@@ -22,13 +35,13 @@ print(score)
 # TODO: make array of all SongPosts in one hour
 array_of_sentiments = []
 time_range = datetime.now() - timedelta(hours=1)
-array_of_sentiments = SongPost.objects.filter(created__lt=time_range)
+array_of_sentiments = SongPost.objects.filter(pub_date__lt=time_range)
 print(array_of_sentiments)
 
 def calculate_hourly_sentiment():
 	# TODO: make array of all SongPosts in one hour
 	array_of_sentiments = []
 	time_range = datetime.now() - timedelta(hours=1)
-	array_of_sentiments = SongPost.objects.filter(created__lt=time_range)
+	array_of_sentiments = SongPost.objects.filter(pub_date__lt=time_range)
 	print(array_of_sentiments)
 	# TODO: access database
