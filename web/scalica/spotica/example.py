@@ -6,6 +6,7 @@ from datetime import timedelta
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 import re
+import json
 
 # Initialize our django application for this external usage
 from django.core.wsgi import get_wsgi_application
@@ -44,19 +45,34 @@ array_of_sentiments = []
 # array_of_songs = SongPost.objects.filter(pub_date__gte=start, pub_date__lte=end)
 startdate = datetime.now() - timedelta(hours=1)
 array_of_songs = SongPost.objects.filter(pub_date__gt=startdate)
-
-print(len(array_of_songs))
-array_of_uris = []
 count = 0
+array_of_sentiments = []
 for song in array_of_songs:
-    print(song.pub_date)
-    print(song.spotify_uri)
     # convert to regular id from uri
     spotify_uri = array_of_songs[count].spotify_uri
     spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
-    array_of_uris.append(spotify_id)
+    # cache sentiment
+    #TODO: switch to redis
+    array_of_sentiments.append(0.9)
     count += 1
-print(array_of_uris)
+# sum up all sentiment values
+total = 0
+for sentiment in array_of_sentiments:
+    total += sentiment
+average_sentiment = total / (len(array_of_sentiments))
+to_add_to_json = {str(startdate): average_sentiment}
+data = {}
+with open('global_sentiment.json') as f:
+    data = json.load(f)
+data.update(to_add_to_json)
+with open('global_sentiment.json', 'w') as f:
+    json.dump(data, f)
+
+# with open(global_sentiment.json) as json_file:
+#     json_decoded = json.load(json_file)
+# json_decoded[str(startdate)] = average_sentiment
+# with open(global_sentiment.json, 'w') as json_file:
+#     json.dump(json_decoded, json_file)
 
 
 

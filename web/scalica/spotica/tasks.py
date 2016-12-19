@@ -4,6 +4,7 @@ from celery import shared_task
 from analysisFlow.analysis import Sentiment
 from analysisFlow.lyrics import Song
 import re
+import json
 
 from django.core.cache import cache
 import logging
@@ -90,6 +91,13 @@ def calculate_hourly_sentiment():
 	for sentiment in array_of_sentiments:
 		total += sentiment
 	average_sentiment = total / (len(array_of_sentiments))
+	to_add_to_json = {startdate: average_sentiment}
+	with open('global_sentiment.json') as f:
+    data = json.load(f)
+	data.update(to_add_to_json)
+	with open('global_sentiment.json', 'w') as f:
+    json.dump(data, f)
+
 
 
 
