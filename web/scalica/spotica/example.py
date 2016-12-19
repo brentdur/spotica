@@ -61,7 +61,7 @@ for sentiment in array_of_sentiments:
     total += sentiment
 average_sentiment = total / (len(array_of_sentiments))
 
-to_add_to_json = {str(startdate): average_sentiment}
+to_add_to_json = {"time": str(startdate), "sentiment": average_sentiment}
 data = {}
 with open('global_sentiment.json') as f:
     data = json.load(f)
