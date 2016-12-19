@@ -1,33 +1,44 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
+from analysisFlow.analysis import Sentiment
+from analysisFlow.lyrics import Song
 
 from django.core.cache import cache
 import logging
+import spotipy
 
 # This task will be triggered when a user plays a song
 @shared_task
-def run_analysis_on_song(song_id):
-	# TODO: get song
-	# song = Song.objects.get(pk=song_id)
-	spotify_id = song.spotify_track_id
+def run_analysis_on_song(spotify_uri):
+	spotify_id = re.sub(r'spotify:track:','',spotify_uri)
 	sentiment = check_for_cached_sentiment(spotify_id)
-	if sentiment is not None:
-		song.sentiment = sentiment
-		song.save()
+	if sentiment is None:
+			sp = spotipy.Spotify()
+			spotify_uri = spotify_uri
+			title = sp.track(spotify_uri)
+			name = track['name']
+			artists = track['artists']
+			if len(artists) > 0:
+			    artist = artists[0]['name']
+			s = Song(artist = artist, title = title)
+			lyrics = s.lyrics()
+			sentiment_object = Sentiment(lyrics)
+			score = sentiment_object.get_sentiment_score()
+			sentiment = score
 		return
 	# insert function call or code here to get sentiment
 	# sentiment = function(song_id)
 	cache_sentiment(spotify_id, sentiment)
 	song.sentiment = sentiment
 	song.save()
-	
+
 # This task will be triggered when a user plays a song possibly by the above task
 @shared_task
 def update_user_timeseries(user_id):
 	return
 	# insert either function call or code here
-	
+
 # This task will be triggered once per hour as a celery-beat task
 @shared_task
 def update_global_timeseries():
