@@ -7,11 +7,14 @@ from analysisFlow.lyrics import Song
 from django.core.cache import cache
 import logging
 import spotipy
+import datetime
 
 # This task will be triggered when a user plays a song
+
+
 @shared_task
 def run_analysis_on_song(spotify_uri):
-	spotify_id = re.sub(r'spotify:track:','',spotify_uri)
+	spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
 	sentiment = check_for_cached_sentiment(spotify_id)
 	if sentiment is None:
 			sp = spotipy.Spotify()
@@ -21,17 +24,19 @@ def run_analysis_on_song(spotify_uri):
 			artists = track['artists']
 			if len(artists) > 0:
 			    artist = artists[0]['name']
-			s = Song(artist = artist, title = title)
+			s = Song(artist=artist, title=title)
 			lyrics = s.lyrics()
 			sentiment_object = Sentiment(lyrics)
 			score = sentiment_object.get_sentiment_score()
 			sentiment = score
-		return
+		# return
 	# insert function call or code here to get sentiment
 	# sentiment = function(song_id)
 	cache_sentiment(spotify_id, sentiment)
-	song.sentiment = sentiment
-	song.save()
+
+
+	# song.sentiment = sentiment
+	# song.save()
 
 # This task will be triggered when a user plays a song possibly by the above task
 @shared_task
@@ -42,9 +47,21 @@ def update_user_timeseries(user_id):
 # This task will be triggered once per hour as a celery-beat task
 @shared_task
 def update_global_timeseries():
+	hour = 0
+	# TODO: call calculate_hour_sentiment
+	average_sentiment = 0
+	# TODO: store hour and sentiment in two variables
+	# TODO: append these two variables to JSON file
 	return
 	# insert either function call or code here
 
+def calculate_hourly_sentiment():
+	# TODO: make array of all SongPosts in one hour
+	array_of_sentiments = []
+	time_range = datetime.now() - timedelta(hours=1)
+	array_of_sentiments = SongPost.objects.filter(created__lt=time_range)
+	print(array_of_sentiments)
+	# TODO: access database
 
 # CACHE - temporary location
 
