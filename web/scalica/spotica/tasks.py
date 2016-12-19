@@ -3,11 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 from analysisFlow.analysis import Sentiment
 from analysisFlow.lyrics import Song
+import re
 
 from django.core.cache import cache
 import logging
 import spotipy
 import datetime
+from datetime import datetime
 
 # Initialize our django application for this external usage
 from django.core.wsgi import get_wsgi_application
@@ -70,10 +72,27 @@ def update_global_timeseries():
 	# insert either function call or code here
 
 def calculate_hourly_sentiment():
-	# TODO: make array of all SongPosts in one hour
+	# make array of all SongPosts made in the last hour
+	startdate = datetime.now() - timedelta(hours=1)
+	array_of_songs = SongPost.objects.filter(pub_date__gt=startdate)
+	count = 0
 	array_of_sentiments = []
-	time_range = datetime.now() - timedelta(hours=1)
-	array_of_songs = SongPost.objects.filter(created__lt=time_range)
+	for song in array_of_songs:
+		# convert to regular id from uri
+	    spotify_uri = array_of_songs[count].spotify_uri
+	    spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
+		# cache sentiment
+		#TODO: switch to redis
+		array_of_sentiments.append(cache.get(spotify_id))
+	    count += 1
+	# sum up all sentiment values
+	total = 0
+	for sentiment in array_of_sentiments:
+		total += sentiment
+	average_sentiment = total / (len(array_of_sentiments))
+
+
+
 
 # CACHE - temporary location
 
