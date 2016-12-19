@@ -41,10 +41,6 @@ def run_analysis_on_song(spotify_uri):
 			sentiment = sentiment_object.get_sentiment_score()
 		cache_sentiment(spotify_id, sentiment)
 	return sentiment
-	# sentiment = function(song_id)
-
-	# song.sentiment = sentiment
-	# song.save()
 
 # This task will be triggered when a user plays a song possibly by the above task
 @shared_task
@@ -61,7 +57,7 @@ def update_global_timeseries():
 
 def calculate_hourly_sentiment():
 	# make array of all SongPosts made in the last hour
-	startdate = datetime.now() - timedelta(hours=2)
+	startdate = datetime.now() - timedelta(hours=1, minutes=2)
 	array_of_songs = SongPost.objects.filter(pub_date__gt=startdate)
 	count = 0
 	array_of_sentiments = []
@@ -85,12 +81,13 @@ def calculate_hourly_sentiment():
 	# ADD TO THE JSON file
 	to_add_to_json = {"time": startdate.strftime("%Y-%m-%dT%H:%M:%S"), "sentiment": average_sentiment}
 	data = []
-	path = settings.MEDIA_ROOT + 'global_sentiment.json'
+	path = check_global_sentiment_json()
 	with open(path) as f:
 		data = json.load(f)
 	data.append(to_add_to_json)
 	with open(path, 'w') as f:
 		json.dump(data, f)
+	cache_global_sentiment_json(path)
 
 
 # CACHE - temporary location
@@ -135,5 +132,8 @@ def cache_global_sentiment_json(path):
 	cache.set('global-sentiment', path)
 
 # Get cache location of global sentiment
-def cache_global_sentiment_json():
-	return cache.get('global-sentiment')
+def check_global_sentiment_json():
+	possible = cache.get('global-sentiment')
+	if possible is None:
+		possible = settings.MEDIA_ROOT + 'global_sentiment.json'
+	return possible

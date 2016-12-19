@@ -133,7 +133,7 @@ def follow(request):
   return render(request, 'micro/follow.html', {'form': form})
 
 from django.conf import settings
-
+from django.core.cache import cache
 @login_required
 def global_sentiment(request):
     media_url = json.dumps(settings.MEDIA_URL + "global_sentiment.json")
