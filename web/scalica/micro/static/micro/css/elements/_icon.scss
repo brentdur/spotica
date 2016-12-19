@@ -1,0 +1,8 @@
+.material-icons {
+  @include unselectable;
+  vertical-align: bottom;
+}
+
+.icon-grey {
+  color: $grey4;
+}

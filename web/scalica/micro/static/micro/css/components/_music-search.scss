@@ -1,0 +1,36 @@
+.musicSearch {
+  display: block;
+  padding: 16px 16px 32px;
+  position: relative;
+  width: 80%;
+  min-width: 600px;
+}
+
+.musicSearch__input {
+  background-color: $light-grey5;
+  border-radius: 2px;
+  color: $dark-grey2;
+  padding: 16px;
+  position: relative;
+  width: 100%;
+
+  &:focus {
+    background-color: $white;
+  }
+
+  &::placeholder {
+    color: $grey1;
+  }
+}
+
+.musicSearch__error {
+  color: $red4;
+  font-size: 13px;
+  margin: 12px 0 0 16px;
+}
+
+.musicSearch-loaded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid $grey5;
+}

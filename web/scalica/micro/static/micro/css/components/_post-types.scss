@@ -1,0 +1,9 @@
+.postTypes {
+  border-top: 1px solid $light-grey3;
+  display: block;
+  padding-top: 12px;
+
+  &:disabled {
+    opacity: .5;
+  }
+}

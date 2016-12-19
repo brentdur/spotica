@@ -2,28 +2,75 @@
 {% load staticfiles %}
 <html>
 <head>
+<<<<<<< HEAD
+  <title>Spotica</title>
+
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'micro/css/style.css' %}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>
+=======
   <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" />
-  <title>Scalica</title>
-</head> 
+  <title>Spotica</title>
+>>>>>>> 5dcca840df8b73402c29d03e46d62536522c0066
+</head>
 <body>
-  <div id="header">
-    {% if user.is_authenticated %}
-      {{ user.username }}
-      <a href="{% url 'micro:logout' %}">Log Out</a>
-    {% else %}
-      <a href="{% url 'micro:login' %}">Log In</a>
-    {% endif %}
-    {% block header %}{% endblock header %}
-  </div>
+  <header class="header">
+    <div class="header__container">
+      <a href="/">
+        <span class="logo">
+          <i class="material-icons logo__icon">music_note</i>
+          <h1 class="logo__title">Spotica</h1>
+        </span>
+      </a>
+
+      {% if user.is_authenticated %}
+        <span>
+          <a href="/global_sentiment"><i class="material-icons header__icon">equalizer</i></a>
+        </span>
+      {% else %}
+        <span class="header__buttons">
+          <a href="/login">
+            <button
+              class="header__signin button-adaptive button-compact button"
+              color="adaptive">
+              Login
+            </button>
+          </a>
+          <a href="/register">
+            <button
+              class="header__signin button-adaptive button-compact button"
+              color="adaptive">
+              Register
+            </button>
+          </a>
+        </span>
+      {% endif %}
+    </div>
+  </header>
+
   <div id="sidebar">
-    {% block sidebar %}{% endblock sidebar %}
+    {% block sidebar %}
+    {% endblock sidebar %}
   </div>
-  <div id="content">
-    {% block content %}{% endblock content %}
-  </div>
-  <div id="footer">
-    <p>Copyright Scalica</p>
-    {% block footer %}{% endblock footer %}
-  </div>
+
+  <main class="mainContent">
+    {% block content %}
+    {% endblock content %}
+  </main>
+
+  <footer class="footer">
+    &copy; Scalica 2016. Made by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim).
+
+    <div class="footer__links">
+      <a href="/logout">Logout</a>
+    </div>
+
+    {% block footer %}
+    {% endblock footer %}
+  </footer>
+
+  {% block scripts %}
+  {% endblock scripts %}
 </body>
 </html>

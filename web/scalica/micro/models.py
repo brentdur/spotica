@@ -7,7 +7,8 @@ from django.forms import ModelForm, TextInput
 class Post(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL)
   text = models.CharField(max_length=256, default="")
-  pub_date = models.DateTimeField('date_posted')
+  pub_date = models.DateTimeField('date_posted', auto_now_add=True)
+
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text
@@ -21,6 +22,7 @@ class Following(models.Model):
   followee = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="user_followed")
   follow_date = models.DateTimeField('follow data')
+
   def __str__(self):
     return self.follower.username + "->" + self.followee.username
 
@@ -43,3 +45,6 @@ class MyUserCreationForm(UserCreationForm):
     help_texts = {
       'username' : '',
     }
+
+class SongPost(Post):
+  spotify_uri = models.CharField(max_length=255)

@@ -1,0 +1,50 @@
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 8px;
+
+  & + & {
+    border-top: 1px solid $light-grey3;
+  }
+}
+
+.post__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.post__authorPic {
+  background-color: $light-grey3;
+  border-radius: 2px;
+  display: block;
+  height: 50px;
+  margin-right: 12px;
+  width: 50px;
+}
+
+.post__details {
+  display: block;
+  width: 100%;
+}
+
+.post__authorName {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.post__published {
+  color: $grey3;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.post__text {
+  color: $dark-grey2;
+  font-size: 14px;
+}
+
+.post__songWidget {
+  margin-top: 16px;
+}

@@ -27,8 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = '/micro/login/'
-LOGIN_REDIRECT_URL = '/micro/home/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/home/'
 
 # Application definition
 
@@ -44,6 +44,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'debug_toolbar',
+
+    # Third-party apps
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,6 +122,18 @@ CACHES = {
 
 # Database routers go here:
 # DATABASE_ROUTERS = ['micro.routers.UserRouter']
+
+# Our API
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 50,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # First try OAuth. Then see if logged in.
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 LANGUAGE_CODE = 'en-us'
 

@@ -1,7 +1,7 @@
 # How to use these scrips
 
 ```
-pip install -r requriements.txt
+pip install -r requirements.txt
 ```
 
 ```python
@@ -17,4 +17,3 @@ sentiment = Sentiment(lyrics)
 # Get the sentiment score
 score = sentiment.get_sentiment_score()
 ```
-
