@@ -3,11 +3,8 @@ from analysisFlow.analysis import Sentiment
 from analysisFlow.lyrics import Song
 from datetime import datetime
 from datetime import timedelta
-<<<<<<< HEAD
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
-=======
->>>>>>> origin/savannah
 
 # Initialize our django application for this external usage
 from django.core.wsgi import get_wsgi_application
