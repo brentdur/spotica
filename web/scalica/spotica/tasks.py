@@ -91,12 +91,15 @@ def calculate_hourly_sentiment():
 	for sentiment in array_of_sentiments:
 		total += sentiment
 	average_sentiment = total / (len(array_of_sentiments))
-	to_add_to_json = {startdate: average_sentiment}
+	# ADD TO THE JSON file
+	to_add_to_json = {str(startdate): average_sentiment}
+	data = {}
 	with open('global_sentiment.json') as f:
-    data = json.load(f)
+	    data = json.load(f)
 	data.update(to_add_to_json)
 	with open('global_sentiment.json', 'w') as f:
-    json.dump(data, f)
+	    json.dump(data, f)
+
 
 
 
