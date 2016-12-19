@@ -89,8 +89,11 @@
       }
     };
 
+
     for (var i = 0; i < searchResults.length; i++) {
       const searchResultsEl = searchResults[i];
+
+      searchResultsEl.innerHTML = '';
 
       for (var j = 0; j < results.length; j++) {
         const result = results[j];
@@ -151,7 +154,6 @@
     })
     .done(function (response, status, jqxhr) {
       const results = response.tracks.items;
-      console.log(results);
 
       if (results.length === 0) {
         displayError('Spotify couldn\'t find any matching songs. Sorry!');
