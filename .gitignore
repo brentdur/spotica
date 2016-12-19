@@ -8,6 +8,7 @@ node_modules
 
 # Server
 *.pyc
-env
-venv
-migrations
+env/
+migrations/
+venv/
+celerybeat-schedule

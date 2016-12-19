@@ -34,6 +34,7 @@ LOGIN_REDIRECT_URL = '/home/'
 
 INSTALLED_APPS = (
     'micro', # Keep this first, so templates are first found in this app.
+    'spotica',
     'utils',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -112,6 +113,13 @@ DATABASES = {
   }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+    },
+}
+
 # Database routers go here:
 # DATABASE_ROUTERS = ['micro.routers.UserRouter']
 
@@ -160,3 +168,8 @@ LOGGING = {
         },
     },
 }
+
+
+# Celery stuff
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
