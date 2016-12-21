@@ -25,7 +25,12 @@ class Song(object):
         return s
 
     def __quote(self, s):
-         return urllib.quote(s.replace(' ', '_'))
+	 ret = ''
+	 try:
+	 	ret = urllib.quote(s.replace(' ', '_'))
+	 except KeyError:
+		print("error")
+         return ret
 
     def __make_url(self):
         artist = self.__quote(self.artist)

@@ -78,7 +78,7 @@ def get_average_sentiment(sentiment_array):
 	for sentiment in sentiment_array:
 		total += sentiment
 	print(total)
-	average_sentiment = total / (len(array_of_sentiments))
+	average_sentiment = total / (len(sentiment_array))
 	return average_sentiment
 
 

@@ -5,7 +5,7 @@ from watson_developer_cloud import AlchemyLanguageV1
 class Sentiment(object):
 	def __init__(self, lyrics):
 		self.lyrics = lyrics
-		self.alchemy_language = AlchemyLanguageV1(url='https://access.alchemyapi.com/calls', api_key='3f6f101319912788f1c51ec4d9fe7ac4f4e74516')
+		self.alchemy_language = AlchemyLanguageV1(url='https://access.alchemyapi.com/calls', api_key='8bd18dcc29f34442114f953af8f1775efa2e6618')
 
 	def get_sentiment_score(self):
 		combined_operations = ['doc-sentiment']
