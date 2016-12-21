@@ -58,7 +58,6 @@ def update_global_timeseries():
 
 def calculate_user_sentiment(user_id):
 	# make array of all SongPosts made by a single user in the last hour
-	startdate = datetime.now() - timedelta(hours=1, minutes=2)
 	array_of_songs = SongPost.objects.filter(user_id=user_id)
 	count = 0
 	array_of_sentiments = []
@@ -79,7 +78,7 @@ def calculate_user_sentiment(user_id):
 		total += sentiment
 	print(total)
 	average_sentiment = total / (len(array_of_sentiments))
-	to_add_to_json = {"total": int(total), "sentiment": average_sentiment}
+	to_add_to_json = {"total": int(count), "sentiment": average_sentiment}
 	data = []
 	path = caching.user_sentiment_json_file(user_id)
 	with open(path) as f:
