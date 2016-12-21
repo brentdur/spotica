@@ -12,7 +12,7 @@ class Sentiment(object):
 		lyr = self.lyrics
 		print(lyr)
 		if not lyr:
-			lyr = 'text'
+			return 0.0	
 		response = self.alchemy_language.combined(text=lyr, extract=combined_operations)
 		print(response)
 		if response['docSentiment']['type'] == 'neutral':
