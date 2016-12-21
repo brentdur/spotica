@@ -58,7 +58,7 @@ def update_global_timeseries():
 
 def calculate_user_sentiment(user_id):
 	# make array of all SongPosts made by a single user in the last hour
-	startdate = now - timedelta(hours=1, minutes=2)
+	startdate = datetime.now() - timedelta(hours=1, minutes=2)
 	array_of_songs = SongPost.objects.filter(user_id=user_id)
 	count = 0
 	array_of_sentiments = []
@@ -79,18 +79,17 @@ def calculate_user_sentiment(user_id):
 		total += sentiment
 	print(total)
 	average_sentiment = total / (len(array_of_sentiments))
-	to_add_to_json = {"total": total, "sentiment": average_sentiment}
+	to_add_to_json = {"total": int(total), "sentiment": average_sentiment}
 	data = []
-	path = caching.check_user_sentiment_json(user_id)
+	path = caching.user_sentiment_json_file(user_id)
 	with open(path) as f:
 		data = json.load(f)
 	data.append(to_add_to_json)
 	with open(path, 'w') as f:
 		json.dump(data, f)
-	caching.cache_user_sentiment_json(path, user_id)
 
 
-def calculate_hourly_global_sentiment(current):
+def calculate_hourly_global_sentiment(current=None):
 	# make array of all SongPosts made in the last hour
 	if current is None:
 		now = datetime.now()
@@ -120,10 +119,9 @@ def calculate_hourly_global_sentiment(current):
 	# ADD TO THE JSON file
 	to_add_to_json = {"time": startdate.strftime("%Y-%m-%dT%H:%M:%S"), "sentiment": average_sentiment}
 	data = []
-	path = caching.check_global_sentiment_json()
+	path = caching.global_sentiment_json_file()
 	with open(path) as f:
 		data = json.load(f)
 	data.append(to_add_to_json)
 	with open(path, 'w') as f:
 		json.dump(data, f)
-	caching.cache_global_sentiment_json(path)

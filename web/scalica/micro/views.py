@@ -71,7 +71,7 @@ def stream(request, user_id):
        'post_list': post_list,
        'my_post': my_post,
        'post_form': PostForm,
-       'file': json.dumps(caching.check_user_sentiment_json(request.user.id))
+       'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
      }
 
     #
@@ -173,5 +173,5 @@ def follow(request):
 
 @login_required
 def global_sentiment(request):
-    media_url = json.dumps(caching.check_global_sentiment_json())
+    media_url = json.dumps(caching.global_sentiment_json_url())
     return render(request, 'micro/global_sentiment.html', {'file': media_url})
