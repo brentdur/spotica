@@ -4,7 +4,7 @@
 
 
 {% block sidebar %}
-<img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
+<!-- <img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
 {{ stream_user.username }}
 {% if form %}
   <form action="/micro/follow/" method="post">
@@ -12,7 +12,7 @@
     <input type="hidden" id="id_followee" name="followee" value="{{ stream_user.id }}" />
     <input type="submit" value="Follow" />
   </form>
-{% endif %}
+{% endif %} -->
 {% endblock %}
 
 {% block content %}
