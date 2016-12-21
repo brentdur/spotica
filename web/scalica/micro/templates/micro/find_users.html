@@ -1,0 +1,15 @@
+{% extends "micro/base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="feed">
+    <br>
+    <h2>Spotica Users</h2>
+     <ul class="userList">
+      {% for user in users %}
+        <li><a href="/stream/{{ user.id }}">{{ user }}</a></li>
+      {% endfor %}
+     </ul>
+  </div>
+{% endblock %}

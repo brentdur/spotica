@@ -168,7 +168,10 @@ def follow(request):
         form = FollowingForm
     return render(request, 'micro/follow.html', {'form': form})
 
+@login_required
+def find_users(request):
 
+    return render(request, 'micro/find_users.html', { 'users': User.objects.all })
 @login_required
 def global_sentiment(request):
     media_url = json.dumps(caching.global_sentiment_json_url())
