@@ -67,8 +67,8 @@
         <div class="tab">You</div>
       </div>
 
-      {% if post_list %}
-        <div class="feed__posts">
+      <div class="feed__posts">
+        {% if post_list %}
           {% for post in post_list %}
             <div class="post">
               <img class="post__authorPic" src="">
@@ -87,17 +87,17 @@
               </div>
             </div>
           {% endfor %}
-        </div>
-      {% else %}
-        <!-- No posts, so display empty state -->
-        <div class="feed__emptyState">
-          <div class="emptyState__container">
-            <h2 class="emptyState__title">There are no posts</h2>
-            <p class="emptyState__prompt">Write the first post!</p>
-            <a class="emptyState__suggestion" href="">Find users</a>
+        {% else %}
+          <!-- No posts, so display empty state -->
+          <div class="feed__emptyState">
+            <div class="emptyState__container">
+              <h2 class="emptyState__title">There are no posts</h2>
+              <p class="emptyState__prompt">Write the first post!</p>
+              <a class="emptyState__suggestion" href="">Find users</a>
+            </div>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </div>
 {% endblock %}
