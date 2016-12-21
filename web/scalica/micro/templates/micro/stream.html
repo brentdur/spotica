@@ -2,26 +2,27 @@
 {% load humanize %}
 {% load staticfiles %}
 
-
-{% block sidebar %}
-<!-- <img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
-{{ stream_user.username }}
-{% if form %}
-  <form action="/micro/follow/" method="post">
-    {% csrf_token %}
-    <input type="hidden" id="id_followee" name="followee" value="{{ stream_user.id }}" />
-    <input type="submit" value="Follow" />
-  </form>
-{% endif %} -->
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/static/micro/css/metricsgraphics-demo.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/micro/css/metricsgraphics.css"/>
 {% endblock %}
 
+{% block sidebar %}
+  <img src="{% static "micro/images/user.png" %}" alt="Generic User"/><br>
+  {{ stream_user.username }}
+  {% if form %}
+    <form action="/micro/follow/" method="post">
+      {% csrf_token %}
+      <input type="hidden" id="id_followee" name="followee" value="{{ stream_user.id }}" />
+      <input type="submit" value="Follow" />
+    </form>
+  {% endif %}
+{% endblock %}
+
+
 {% block content %}
-<head>
-     <link rel="stylesheet" type="text/css" href="/static/micro/css/metricsgraphics-demo.css"/>
-     <link rel="stylesheet" type="text/css" href="/static/micro/css/metricsgraphics.css"/>
-</head>
-<div id="user_sentiment_graph">
-</div>
+  <div id="user_sentiment_graph">
+  </div>
   {% if post_list %}
     <div class="feed__posts">
       {% for post in post_list %}
@@ -53,11 +54,14 @@
       </div>
     </div>
   {% endif %}
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src='/static/micro/js/d3.min.js' charset='utf-8'></script>
-<script type="text/javascript" src="/static/micro/js/metricsgraphics.js" charset="utf-8"></script>
-<script type="text/javascript">
-	var file = {{file|safe}};
-</script>
-<script type="text/javascript" src="/static/micro/js/user-sentiment-display.js" type="text/javascript" charset="utf-8" defer></script>
 {% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src='/static/micro/js/d3.min.js' charset='utf-8'></script>
+  <script type="text/javascript" src="/static/micro/js/metricsgraphics.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var file = {{file|safe}};
+  </script>
+  <script type="text/javascript" src="/static/micro/js/user-sentiment-display.js" type="text/javascript" charset="utf-8" defer></script>
+{% endblock%}
