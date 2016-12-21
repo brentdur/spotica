@@ -13,60 +13,85 @@ import json
 
 # Anonymous views
 def index(request):
-  if request.user.is_authenticated():
-    return home(request)
-  else:
-    return anon_home(request)
+    if request.user.is_authenticated():
+        return home(request)
+    else:
+        return anon_home(request)
 
 
 def anon_home(request):
-  return render(request, 'micro/public.html')
+    return render(request, 'micro/public.html')
 
 
 def stream(request, user_id):
-  # See if to present a 'follow' button
-  form = None
-  if request.user.is_authenticated() and request.user.id != int(user_id):
+
+    # See if to present a 'follow' button
+    # form = None
+    # if request.user.is_authenticated() and request.user.id != int(user_id):
+    #     try:
+    #         f = Following.objects.get(follower_id=request.user.id,
+    #                                   followee_id=user_id)
+    #     except Following.DoesNotExist:
+    #         form = FollowingForm
+    # user = User.objects.get(pk=user_id)
+    # post_list = Post.objects.filter(user_id=user_id).order_by('-pub_date')
+    # paginator = Paginator(post_list, 10)
+    # page = request.GET.get('page')
+    # try:
+    #     posts = paginator.page(page)
+    # except PageNotAnInteger:
+    #     # If page is not an integer, deliver first page.
+    #     posts = paginator.page(1)
+    # except EmptyPage:
+    #     # If page is out of range (e.g. 9999), deliver last page of results.
+    #     posts = paginator.page(paginator.num_pages)
+    #     # Get a list of text and songs posts, sorted by date
     try:
-      f = Following.objects.get(follower_id=request.user.id,
-                                followee_id=user_id)
-    except Following.DoesNotExist:
-      form = FollowingForm
-  user = User.objects.get(pk=user_id)
-  post_list = Post.objects.filter(user_id=user_id).order_by('-pub_date')
-  paginator = Paginator(post_list, 10)
-  page = request.GET.get('page')
-  try:
-    posts = paginator.page(page)
-  except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-    posts = paginator.page(1)
-  except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-    posts = paginator.page(paginator.num_pages)
-  context = {
-    'posts': posts,
-    'stream_user': user,
-    'form': form,
-  }
-  return render(request, 'micro/stream.html', context)
+      my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
+    except IndexError:
+      my_post = None
+
+#    follows = [o.followee_id for o in Following.objects.filter(
+#        follower_id=request.user.id)]
+
+    song_posts = SongPost.objects.filter(user=request.user)
+    song_post_ids = [post.id for post in song_posts]
+    #text_posts = Post.objects.filter(user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
+    print("length = "+ str(len(song_posts)))
+
+    post_list = sorted(chain(song_posts),key=attrgetter('pub_date'),reverse=True)
+    print ("post list length = " + str(len(post_list)))
+
+    context = {
+       'post_list': post_list,
+       'my_post': my_post,
+       'post_form': PostForm
+     }
+
+    #
+    # context = {
+    #     'posts': posts,
+    #     'stream_user': user,
+    #     'form': form,
+    # }
+    return render(request, 'micro/stream.html', context)
 
 
 def register(request):
-  if request.method == 'POST':
-    form = MyUserCreationForm(request.POST)
-    new_user = form.save(commit=True)
-    # Log in that user.
-    user = authenticate(username=new_user.username,
-                        password=form.clean_password2())
-    if user is not None:
-      login(request, user)
+    if request.method == 'POST':
+        form = MyUserCreationForm(request.POST)
+        new_user = form.save(commit=True)
+        # Log in that user.
+        user = authenticate(username=new_user.username,
+                            password=form.clean_password2())
+        if user is not None:
+            login(request, user)
+        else:
+            raise Exception
+        return home(request)
     else:
-      raise Exception
-    return home(request)
-  else:
-    form = MyUserCreationForm
-  return render(request, 'micro/register.html', {'form': form})
+        form = MyUserCreationForm
+    return render(request, 'micro/register.html', {'form': form})
 
 # Authenticated views
 #####################
@@ -74,66 +99,70 @@ def register(request):
 
 @login_required
 def home(request):
-  '''List of recent posts by people I follow and myself'''
-  try:
-    my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
-  except IndexError:
-    my_post = None
+    '''List of recent posts by people I follow and myself'''
+    try:
+        my_post = Post.objects.filter(
+            user=request.user).order_by('-pub_date')[0]
+    except IndexError:
+        my_post = None
 
-  follows = [o.followee_id for o in Following.objects.filter(
-    follower_id=request.user.id)]
+    follows = [o.followee_id for o in Following.objects.filter(
+        follower_id=request.user.id)]
 
-  # Get a list of text and songs posts, sorted by date
-  song_posts = SongPost.objects.filter(user_id__in=follows + [request.user.id])
-  song_post_ids = [post.id for post in song_posts]
-  text_posts = Post.objects.filter(
-      user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
+    # Get a list of text and songs posts, sorted by date
+    song_posts = SongPost.objects.filter(
+        user_id__in=follows + [request.user.id])
+    song_post_ids = [post.id for post in song_posts]
+    text_posts = Post.objects.filter(
+        user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
 
-  post_list = sorted(
-    chain(set().union(text_posts, song_posts)),
-    key=attrgetter('pub_date'),
-    reverse=True)
+    post_list = sorted(
+        chain(set().union(text_posts, song_posts)),
+        key=attrgetter('pub_date'),
+        reverse=True)
 
-  context = {
-    'post_list': post_list,
-    'my_post': my_post,
-    'post_form': PostForm
-  }
+    context = {
+        'post_list': post_list,
+        'my_post': my_post,
+        'post_form': PostForm
+    }
 
-  return render(request, 'micro/home.html', context)
+    return render(request, 'micro/home.html', context)
 
 # Allows to post something and shows my most recent posts.
 
 
 @login_required
 def post(request):
-  if request.method == 'POST':
-    form = PostForm(request.POST)
-    new_post = form.save(commit=False)
-    new_post.user = request.user
-    new_post.pub_date = timezone.now()
-    new_post.save()
-    return home(request)
-  else:
-    form = PostForm
-  return render(request, 'micro/post.html', {'form': form})
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        new_post = form.save(commit=False)
+        new_post.user = request.user
+        new_post.pub_date = timezone.now()
+        new_post.save()
+        return home(request)
+    else:
+        form = PostForm
+    return render(request, 'micro/post.html', {'form': form})
 
 
 @login_required
 def follow(request):
-  if request.method == 'POST':
-    form = FollowingForm(request.POST)
-    new_follow = form.save(commit=False)
-    new_follow.follower = request.user
-    new_follow.follow_date = timezone.now()
-    new_follow.save()
-    return home(request)
-  else:
-    form = FollowingForm
-  return render(request, 'micro/follow.html', {'form': form})
+    if request.method == 'POST':
+        form = FollowingForm(request.POST)
+        new_follow = form.save(commit=False)
+        new_follow.follower = request.user
+        new_follow.follow_date = timezone.now()
+        new_follow.save()
+        return home(request)
+    else:
+        form = FollowingForm
+    return render(request, 'micro/follow.html', {'form': form})
 
 from django.conf import settings
 from django.core.cache import cache
+
+
 @login_required
 def global_sentiment(request):
     media_url = json.dumps(settings.MEDIA_URL + "global_sentiment.json")

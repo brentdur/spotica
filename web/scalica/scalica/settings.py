@@ -149,7 +149,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/bd/Documents/spotica/web/scalica/media/'
+# MEDIA_ROOT = '/home/bd/Documents/spotica/web/scalica/media/'
+MEDIA_ROOT = '/Users/Savannah/Documents/2016/largescale/spotica/web/scalica/media/'
 MEDIA_URL = '/media/'
 
 # Logging

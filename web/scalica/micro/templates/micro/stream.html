@@ -1,6 +1,8 @@
 {% extends "micro/base.html" %}
 {% load humanize %}
 {% load staticfiles %}
+
+
 {% block sidebar %}
 <img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
 {{ stream_user.username }}
@@ -12,11 +14,37 @@
   </form>
 {% endif %}
 {% endblock %}
+
 {% block content %}
-{% for post in posts %}
-  <li>
-    {{ post.text }} ({{ post.pub_date|naturaltime }})
-  </li>
-{% endfor %}
-{# TODO: see complete pagination example in Django doc for more #}
+      {% if post_list %}
+        <div class="feed__posts">
+          {% for post in post_list %}
+            <div class="post">
+              <img class="post__authorPic" src="">
+
+              <div class="post__body">
+                <a href="#" class="post__authorName">{{ post.user.username }}</a>
+                <p class="post__published">{{ post.pub_date|naturaltime }}</p>
+
+                <p class="post__text">{{ post.text }}</p>
+
+                {% if post.spotify_uri %}
+                <div class="post__songWidget">
+                  <iframe src="https://embed.spotify.com/?uri={{post.spotify_uri}}" width="420" height="80" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- No posts, so display empty state -->
+        <div class="feed__emptyState">
+          <div class="emptyState__container">
+            <h2 class="emptyState__title">There are no posts</h2>
+            <p class="emptyState__prompt">Write the first post!</p>
+            <a class="emptyState__suggestion" href="">Find users</a>
+          </div>
+        </div>
+      {% endif %}
 {% endblock %}
