@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from micro.models import SongPost
 import random
 from datetime import datetime, timedelta
@@ -12,8 +13,11 @@ names = ['amy', 'bob', 'cat', 'dom', 'egor', 'freddy', 'geoffry', 'hector', 'ini
 users = []
 spotify_track_ids = []
 for name in names:
-	user = User.objects.create_user(name, name + '@example.com', 'testtesttest')
-	users.append(user)
+	try:
+		user = User.objects.create_user(name, name + '@example.com', 'testtesttest')
+		users.append(user)
+	except IntegrityError as e:
+		continue
 
 sp = spotipy.Spotify()
 
@@ -23,13 +27,14 @@ for album in sp.artist_albums('spotify:artist:0du5cEVh5yTK9QJze8zA0C')['items']:
 
 current = datetime.now() - timedelta(days = 1)
 
-for x in range(0, 7):
-	freeze_time(current)
-	for y in range(0, 50):
-		user = random.choice(users)
-		song = random.choice(spotify_track_ids)
-		SongPost.objects.create(user=user, text="blah blah blah", spotify_uri=song)
-	current = current - timedelta(days = 1)
+if len(users) > 0:
+	for x in range(0, 7):
+		freeze_time(current)
+		for y in range(0, 50):
+			user = random.choice(users)
+			song = random.choice(spotify_track_ids)
+			SongPost.objects.create(user=user, text="blah blah blah", spotify_uri=song)
+		current = current - timedelta(days = 1)
 
 
 while current < datetime.now():
