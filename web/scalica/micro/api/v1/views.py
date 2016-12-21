@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from micro.models import Post, SongPost
 from .serializers import PostSerializer, SongPostSerializer
 from rest_framework import serializers
+from spotica import tasks as celery_tasks
 
 class PostViewSet(viewsets.ModelViewSet):
   """
@@ -35,7 +36,7 @@ class SongPostViewSet(viewsets.ModelViewSet):
       text=request.data.get('text'),
       spotify_uri=request.data.get('spotify_uri'),
     )
-    # BRENTON: add call to celery to compute user sentiment here
+    celery_tasks.update_user_timeseries.delay(request.user.id)
     data = self.get_serializer(post).data
 
     return Response(data)
