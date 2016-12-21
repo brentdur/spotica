@@ -130,6 +130,45 @@ def calculate_hourly_global_sentiment(current):
 	cache_global_sentiment_json(path)
 
 
+def calculate_hourly_sentiment_user(current, user_id):
+	# make array of all SongPosts made in the last hour
+	if current is None:
+		now = datetime.now()
+	else:
+		now = current
+	startdate = now - timedelta(hours=1, minutes=2)
+	array_of_songs = SongPost.objects.filter(pub_date__gt=startdate).filter(user_id=user_id)
+	count = 0
+	array_of_sentiments = []
+	for song in array_of_songs:
+		# convert to regular id from uri
+		spotify_uri = song.spotify_uri
+		spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
+		# cache sentiment
+		#TODO: switch to redis
+		sentiment = check_for_cached_sentiment(spotify_id)
+		if sentiment is None:
+			sentiment = run_analysis_on_song(spotify_id)
+		array_of_sentiments.append(sentiment)
+		count += 1
+	# sum up all sentiment values
+	total = 0
+	for sentiment in array_of_sentiments:
+		total += sentiment
+	print(total)
+	average_sentiment = total / (len(array_of_sentiments))
+	# ADD TO THE JSON file
+	to_add_to_json = {"time": startdate.strftime("%Y-%m-%dT%H:%M:%S"), "sentiment": average_sentiment}
+	data = []
+	path = check_user_sentiment_json()
+	with open(path) as f:
+		data = json.load(f)
+	data.append(to_add_to_json)
+	with open(path, 'w') as f:
+		json.dump(data, f)
+	cache_global_sentiment_json(path)
+
+
 # CACHE - temporary location
 
 # Get an instance of a logger
@@ -178,10 +217,18 @@ def check_global_sentiment_json():
 		possible = settings.MEDIA_ROOT + 'global_sentiment.json'
 	return possible
 
+<<<<<<< HEAD
 # get cache location of user sentiment
 #TODO: update global-sentiment to user-sentiment?
 def check_user_sentiment_json():
 	possible = cache.get('global-sentiment')
 	if possible is None:
 		possible = settings.MEDIA_ROOT + 'global_sentiment.json'
+=======
+# Get cache location of global sentiment
+def check_user_sentiment_json():
+	possible = cache.get('global-sentiment')
+	if possible is None:
+		possible = settings.MEDIA_ROOT + 'sentiment-'str(user_id)+'.json'
+>>>>>>> origin/savannah
 	return possible

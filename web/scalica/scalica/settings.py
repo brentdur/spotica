@@ -150,7 +150,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # MEDIA_ROOT = '/home/bd/Documents/spotica/web/scalica/media/'
-MEDIA_ROOT = '/Users/Savannah/Documents/2016/largescale/spotica/web/scalica/media/'
+MEDIA_ROOT = '/Users/freialobo/Desktop/spotica/web/scalica/media/'
 MEDIA_URL = '/media/'
 
 # Logging
