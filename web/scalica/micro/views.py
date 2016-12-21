@@ -9,7 +9,8 @@ from operator import attrgetter
 from itertools import chain
 from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm, SongPost
 import json
-
+import io
+import os
 
 # Anonymous views
 def index(request):
@@ -84,8 +85,12 @@ def register(request):
         # Log in that user.
         user = authenticate(username=new_user.username,
                             password=form.clean_password2())
+        # name_of_json_file = "sentiment" + user.username + ".json"
+        # with io.FileIO('/userjson', name_of_json_file, "w") as file:
+            # file.write("[]")
         if user is not None:
             login(request, user)
+            print(user.user_id)
         else:
             raise Exception
         return home(request)
