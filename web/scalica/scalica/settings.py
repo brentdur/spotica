@@ -149,8 +149,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# MEDIA_ROOT = '/home/bd/Documents/spotica/web/scalica/media/'
-MEDIA_ROOT = '/Users/freialobo/Desktop/spotica/web/scalica/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 # Logging
