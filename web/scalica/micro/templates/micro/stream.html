@@ -19,10 +19,10 @@
   {% endif %}
 {% endblock %}
 
-
 {% block content %}
   <div id="user_sentiment_graph">
   </div>
+
   {% if post_list %}
     <div class="feed__posts">
       {% for post in post_list %}
@@ -48,9 +48,7 @@
     <!-- No posts, so display empty state -->
     <div class="feed__emptyState">
       <div class="emptyState__container">
-        <h2 class="emptyState__title">There are no posts</h2>
-        <p class="emptyState__prompt">Write the first post!</p>
-        <a class="emptyState__suggestion" href="">Find users</a>
+        <h2 class="emptyState__title">{{ stream_user.username }} hasn't posted yet.</h2>
       </div>
     </div>
   {% endif %}

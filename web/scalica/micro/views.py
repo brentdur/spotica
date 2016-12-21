@@ -30,37 +30,35 @@ def anon_home(request):
 
 def stream(request, user_id):
     # See if to present a 'follow' button
-    # form = None
-    # if request.user.is_authenticated() and request.user.id != int(user_id):
-    #     try:
-    #         f = Following.objects.get(follower_id=request.user.id,
-    #                                   followee_id=user_id)
-    #     except Following.DoesNotExist:
-    #         form = FollowingForm
-    # user = User.objects.get(pk=user_id)
-    # post_list = Post.objects.filter(user_id=user_id).order_by('-pub_date')
-    # paginator = Paginator(post_list, 10)
-    # page = request.GET.get('page')
-    # try:
-    #     posts = paginator.page(page)
-    # except PageNotAnInteger:
-    #     # If page is not an integer, deliver first page.
-    #     posts = paginator.page(1)
-    # except EmptyPage:
-    #     # If page is out of range (e.g. 9999), deliver last page of results.
-    #     posts = paginator.page(paginator.num_pages)
-    #     # Get a list of text and songs posts, sorted by date
+    form = None
+
+    if request.user.is_authenticated() and request.user.id != int(user_id):
+        try:
+            f = Following.objects.get(follower_id=request.user.id,
+                                      followee_id=user_id)
+        except Following.DoesNotExist:
+            form = FollowingForm
+
+    # Get the user's posts
+    user = User.objects.get(pk=user_id)
+    post_list = Post.objects.filter(user_id=user_id).order_by('-pub_date')
+    paginator = Paginator(post_list, 10)
+    page = request.GET.get('page')
+
     try:
-      my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
-    except IndexError:
-      my_post = None
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
 
-#    follows = [o.followee_id for o in Following.objects.filter(
-#        follower_id=request.user.id)]
+    follows = [o.followee_id for o in Following.objects.filter(follower_id=request.user.id)]
 
-    song_posts = SongPost.objects.filter(user=request.user)
+    song_posts = SongPost.objects.filter(user=user_id)
     song_post_ids = [post.id for post in song_posts]
-    #text_posts = Post.objects.filter(user_id__in=follows + [request.user.id]).exclude(id__in=song_post_ids)
+
     print("length = "+ str(len(song_posts)))
 
     post_list = sorted(chain(song_posts),key=attrgetter('pub_date'),reverse=True)
@@ -69,16 +67,16 @@ def stream(request, user_id):
     context = {
         # Only show 15 of the posts
         'post_list': post_list[0:15],
-        'my_post': my_post,
+        'posts': post_list[0:15],
         'post_form': PostForm,
-        'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
+        'file': json.dumps(caching.user_sentiment_json_url(request.user.id)),
+        'stream_user': user,
+        'form': form
         }
 
     #
     # context = {
     #     'posts': posts,
-    #     'stream_user': user,
-    #     'form': form,
     # }
     return render(request, 'micro/stream.html', context)
 
