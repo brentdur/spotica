@@ -35,6 +35,7 @@ class SongPostViewSet(viewsets.ModelViewSet):
       text=request.data.get('text'),
       spotify_uri=request.data.get('spotify_uri'),
     )
+    # BRENTON: add call to celery to compute user sentiment here
     data = self.get_serializer(post).data
 
     return Response(data)
