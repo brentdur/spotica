@@ -2,15 +2,21 @@ from django.contrib.auth.models import User
 from micro.models import Post, SongPost
 from rest_framework import serializers
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+  class Meta:
+    model = User
+    fields = ('username',)
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
-  user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+  user = UserSerializer('user')
 
   class Meta:
     model = Post
     fields = ('id', 'user', 'text', 'pub_date',)
 
 class SongPostSerializer(serializers.HyperlinkedModelSerializer):
-  user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+  user = UserSerializer('user')
 
   class Meta:
     model = SongPost

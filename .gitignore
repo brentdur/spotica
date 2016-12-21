@@ -12,6 +12,7 @@ env/
 migrations/
 venv/
 celerybeat-schedule
+dump.rdb
 
 web/scalica/static
 web/scalica/log

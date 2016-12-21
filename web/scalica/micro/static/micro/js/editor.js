@@ -75,6 +75,8 @@
       return;
     }
 
+    postButton.disabled = true;
+
     const songChoiceEl = document.querySelector('.songChoice');
     const isSongPost = songChoiceEl && songChoiceEl.innerHTML !== '';
     const MAX_POST_LEN = 140;
@@ -110,10 +112,90 @@
       url: ajaxUrl,
     })
     .done(function (response, status, jqxhr) {
-      console.log(response);
+      renderPost(response);
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
       console.log('The Spotify API seems to be down.');
+    })
+    .always(function() {
+      postButton.disabled = false;
+
+      // Clear post text field
+      inputField.value = '';
+
+      var inputEvent = document.createEvent('HTMLEvents');
+      inputEvent.initEvent('input', false, true);
+      inputField.dispatchEvent(inputEvent);
     });
   }
 })();
+
+function renderPost(post) {
+  /**
+   * Expects the post object to be structured as so: {
+   *  pub_date
+   *  spotify_uri
+   *  text
+   *  user: {
+   *    username
+   *   }
+   *  }
+   */
+
+   const posts = document.getElementsByClassName('feed__posts')[0];
+
+   const postEl = document.createElement('div');
+   postEl.classList.add('post');
+
+   // Author's picture
+   const authorPic = document.createElement('img');
+   authorPic.classList.add('post__authorPic');
+   authorPic.src = '';
+
+   postEl.appendChild(authorPic);
+
+   // Post body
+   const postBody = document.createElement('div');
+   postBody.classList.add('post__body');
+
+   const authorName = document.createElement('a');
+   authorName.href = '#';
+   console.log(post.user);
+   authorName.innerHTML = post.user.username;
+
+   const postTime = document.createElement('p');
+   postTime.classList.add('post__published');
+   postTime.textContent = 'Now';
+
+   const postText = document.createElement('p');
+   postText.classList.add('post__text');
+   postText.textContent = post.text;
+
+   postBody.appendChild(authorName);
+   postBody.appendChild(postTime);
+   postBody.appendChild(postText);
+
+   postEl.appendChild(postBody);
+
+   if (post.spotify_uri) {
+    const songWidget = document.createElement('div');
+    songWidget.classList.add('post__songWidget');
+
+    const spotifyWidget = document.createElement('iframe');
+    spotifyWidget.src = 'https://embed.spotify.com/?uri={{post.spotify_uri}}'
+    spotifyWidget.width = 420;
+    spotifyWidget.height= 80
+    spotifyWidget.frameBorder = 0;
+    spotifyWidget.allowtransparency = true;
+
+    songWidget.appendChild(spotifyWidget);
+    postEl.appendChild(songWidget);
+   }
+
+   // Add post the top of the feed
+   if (posts.firstChild) {
+    posts.insertBefore(postEl, posts.firstChild);
+   } else {
+    posts.appendChild(postEl);
+   }
+}
