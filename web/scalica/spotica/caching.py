@@ -5,6 +5,8 @@ from spotica.analysisFlow.lyrics import Song
 import re
 import json
 
+import os.path
+
 from django.core.cache import cache
 import logging
 import spotipy
@@ -55,8 +57,9 @@ def check_user_sentiment_json(user_id):
 	possible = cache.get('user-sentiment-' + str(user_id))
 	if possible is None:
 		file = 'user-sentiment-'+str(user_id)+'.json'
-		with open(settings.MEDIA_ROOT + file, 'a') as f:
-			f.write('[]')
+		if not os.path.isfile(settings.MEDIA_ROOT + file):
+			with open(settings.MEDIA_ROOT + file, 'a') as f:
+				f.write('[]')
 		possible = file
 	return possible
 

@@ -56,12 +56,10 @@ def update_global_timeseries():
 	calculate_hourly_global_sentiment()
 	hour = 0
 
-def calculate_user_sentiment(user_id):
-	# make array of all SongPosts made by a single user in the last hour
-	array_of_songs = SongPost.objects.filter(user_id=user_id)
-	count = 0
+def get_sentiments(song_array):
 	array_of_sentiments = []
-	for song in array_of_songs:
+	count = 0
+	for song in song_array:
 		# convert to regular id from uri
 		spotify_uri = song.spotify_uri
 		spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
@@ -72,12 +70,24 @@ def calculate_user_sentiment(user_id):
 			sentiment = run_analysis_on_song(spotify_id)
 		array_of_sentiments.append(sentiment)
 		count += 1
+	return array_of_sentiments
+
+def get_average_sentiment(sentiment_array):
 	# sum up all sentiment values
 	total = 0
-	for sentiment in array_of_sentiments:
+	for sentiment in sentiment_array:
 		total += sentiment
 	print(total)
-	average_sentiment = total / (len(array_of_sentiments))
+	average_sentiment = total / (len(sentiment_array))
+	return average_sentiment
+
+
+def calculate_user_sentiment(user_id):
+	# make array of all SongPosts made by a single user in the last hour
+	array_of_songs = SongPost.objects.filter(user_id=user_id)
+	array_of_sentiments = get_sentiments(array_of_songs)
+	average_sentiment = get_average_sentiment(array_of_sentiments)
+	count = len(average_sentiment)
 	to_add_to_json = {"total": int(count), "sentiment": average_sentiment}
 	data = []
 	path = caching.user_sentiment_json_file(user_id)
@@ -96,25 +106,9 @@ def calculate_hourly_global_sentiment(current=None):
 		now = current
 	startdate = now - timedelta(hours=1, minutes=2)
 	array_of_songs = SongPost.objects.filter(pub_date__gt=startdate)
-	count = 0
-	array_of_sentiments = []
-	for song in array_of_songs:
-		# convert to regular id from uri
-		spotify_uri = song.spotify_uri
-		spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
-		# cache sentiment
-		#TODO: switch to redis
-		sentiment = caching.check_for_cached_sentiment(spotify_id)
-		if sentiment is None:
-			sentiment = run_analysis_on_song(spotify_id)
-		array_of_sentiments.append(sentiment)
-		count += 1
-	# sum up all sentiment values
-	total = 0
-	for sentiment in array_of_sentiments:
-		total += sentiment
-	print(total)
-	average_sentiment = total / (len(array_of_sentiments))
+	array_of_sentiments = get_sentiments(array_of_songs)
+	average_sentiment = get_average_sentiment(array_of_sentiments)
+
 	# ADD TO THE JSON file
 	to_add_to_json = {"time": startdate.strftime("%Y-%m-%dT%H:%M:%S"), "sentiment": average_sentiment}
 	data = []
