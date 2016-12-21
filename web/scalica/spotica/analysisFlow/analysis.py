@@ -9,7 +9,11 @@ class Sentiment(object):
 
 	def get_sentiment_score(self):
 		combined_operations = ['doc-sentiment']
-		response = self.alchemy_language.combined(text=self.lyrics, extract=combined_operations)
+		lyr = self.lyrics
+		print(lyr)
+		if not lyr:
+			lyr = 'text'
+		response = self.alchemy_language.combined(text=lyr, extract=combined_operations)
 		print(response)
 		if response['docSentiment']['type'] == 'neutral':
 			return 0.0
