@@ -182,14 +182,15 @@ function renderPost(post) {
     songWidget.classList.add('post__songWidget');
 
     const spotifyWidget = document.createElement('iframe');
-    spotifyWidget.src = 'https://embed.spotify.com/?uri={{post.spotify_uri}}'
+
+    spotifyWidget.src = 'https://embed.spotify.com/?uri=' + post.spotify_uri;
     spotifyWidget.width = 420;
     spotifyWidget.height= 80
     spotifyWidget.frameBorder = 0;
     spotifyWidget.allowtransparency = true;
 
     songWidget.appendChild(spotifyWidget);
-    postEl.appendChild(songWidget);
+    postBody.appendChild(songWidget);
    }
 
    // Add post the top of the feed

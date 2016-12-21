@@ -68,11 +68,11 @@ def stream(request, user_id):
 
     context = {
         # Only show 15 of the posts
-       'post_list': post_list[0:15],
-       'my_post': my_post,
-       'post_form': PostForm,
-       'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
-     }
+        'post_list': post_list[0:15],
+        'my_post': my_post,
+        'post_form': PostForm,
+        'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
+        }
 
     #
     # context = {
