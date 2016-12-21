@@ -62,10 +62,12 @@ def stream(request, user_id):
     post_list = sorted(chain(song_posts),key=attrgetter('pub_date'),reverse=True)
     print ("post list length = " + str(len(post_list)))
 
+    # BRENTON: media stuff
     context = {
        'post_list': post_list,
        'my_post': my_post,
-       'post_form': PostForm
+       'post_form': PostForm,
+       'file': json.dumps(settings.MEDIA_URL + "global_sentiment.json")
      }
 
     #
@@ -85,6 +87,7 @@ def register(request):
         user = authenticate(username=new_user.username,
                             password=form.clean_password2())
         print(user.username)
+        # create unique JSON file to store user sentiment
         name_of_json_file = "sentiment-" + user.username + ".json"
         with io.FileIO(name_of_json_file, "w") as file:
             file.write("[]")
