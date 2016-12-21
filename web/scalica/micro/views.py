@@ -29,7 +29,6 @@ def anon_home(request):
 
 
 def stream(request, user_id):
-
     # See if to present a 'follow' button
     # form = None
     # if request.user.is_authenticated() and request.user.id != int(user_id):
@@ -68,11 +67,12 @@ def stream(request, user_id):
     print ("post list length = " + str(len(post_list)))
 
     context = {
-       'post_list': post_list,
-       'my_post': my_post,
-       'post_form': PostForm,
-       'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
-     }
+        # Only show 15 of the posts
+        'post_list': post_list[0:15],
+        'my_post': my_post,
+        'post_form': PostForm,
+        'file': json.dumps(caching.user_sentiment_json_url(request.user.id))
+        }
 
     #
     # context = {

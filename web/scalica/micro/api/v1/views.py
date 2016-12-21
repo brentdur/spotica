@@ -36,6 +36,7 @@ class SongPostViewSet(viewsets.ModelViewSet):
       text=request.data.get('text'),
       spotify_uri=request.data.get('spotify_uri'),
     )
+
     celery_tasks.update_user_timeseries.delay(request.user.id)
     data = self.get_serializer(post).data
 
