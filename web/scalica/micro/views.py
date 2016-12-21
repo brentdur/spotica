@@ -11,6 +11,11 @@ from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
 import json
 import io
 
+from django.conf import settings
+
+from spotica import caching
+
+
 # Anonymous views
 def index(request):
     if request.user.is_authenticated():
@@ -62,12 +67,11 @@ def stream(request, user_id):
     post_list = sorted(chain(song_posts),key=attrgetter('pub_date'),reverse=True)
     print ("post list length = " + str(len(post_list)))
 
-    # BRENTON: media stuff
     context = {
        'post_list': post_list,
        'my_post': my_post,
        'post_form': PostForm,
-       'file': json.dumps(settings.MEDIA_URL + "global_sentiment.json")
+       'file': json.dumps(caching.check_user_sentiment_json(request.user.id))
      }
 
     #
@@ -166,11 +170,8 @@ def follow(request):
         form = FollowingForm
     return render(request, 'micro/follow.html', {'form': form})
 
-from django.conf import settings
-from django.core.cache import cache
-
 
 @login_required
 def global_sentiment(request):
-    media_url = json.dumps(settings.MEDIA_URL + "global_sentiment.json")
+    media_url = json.dumps(caching.check_global_sentiment_json())
     return render(request, 'micro/global_sentiment.html', {'file': media_url})

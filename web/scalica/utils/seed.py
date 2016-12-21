@@ -21,8 +21,13 @@ for name in names:
 
 sp = spotipy.Spotify()
 
+albums = ["spotify:album:4pC2URLdvle8V6Um4qxh46", "spotify:album:0cbpcdI4UySacPh5RCpDfo", "spotify:album:4nKfZbCALT9H9LfedtDwnZ", "spotify:album:5tbykpeXPR1kEeveI0xOzK", "spotify:album:5NOhXlXwlcGhRbfDWQRij0", "spotify:album:3539EbNgIdEDGBKkUf4wno", "spotify:album:1Od4S26RB37khls09dsUxL"]
+
 for album in sp.artist_albums('spotify:artist:0du5cEVh5yTK9QJze8zA0C')['items']:
-	for song in sp.album_tracks(album['uri'])['items']:
+	albums.append(album['uri'])
+
+for album in albums:
+	for song in sp.album_tracks(album)['items']:
 		spotify_track_ids.append(song['uri'])
 
 current = datetime.now() - timedelta(days = 1)
