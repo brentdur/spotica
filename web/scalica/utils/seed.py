@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from freezegun import freeze_time
 import spotipy
 import os
+from django.utils import timezone
 
 from spotica import tasks
 
@@ -30,7 +31,7 @@ for album in albums:
 	for song in sp.album_tracks(album)['items']:
 		spotify_track_ids.append(song['uri'])
 
-current = datetime.now() - timedelta(days = 1)
+current = timezone.now() - timedelta(days = 1)
 
 if len(users) > 0:
 	for x in range(0, 7):
@@ -42,10 +43,10 @@ if len(users) > 0:
 		current = current - timedelta(days = 1)
 
 
-while current < datetime.now():
+while current < timezone.now():
 	freeze_time(current)
 
-	tasks.calculate_hourly_sentiment(current)
+	tasks.calculate_hourly_global_sentiment(current)
 
 	current = current + timedelta(hours=1)
 
