@@ -55,7 +55,7 @@ def check_user_sentiment_json(user_id):
 	possible = cache.get('user-sentiment-' + str(user_id))
 	if possible is None:
 		file = 'user-sentiment-'+str(user_id)+'.json'
-		with open(settings.MEDIA_ROOT + file, 'w') as f:
+		with open(settings.MEDIA_ROOT + file, 'a') as f:
 			f.write('[]')
 		possible = file
 	return possible
