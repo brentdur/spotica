@@ -20,4 +20,4 @@ class SongPostSerializer(serializers.HyperlinkedModelSerializer):
 
   class Meta:
     model = SongPost
-    fields = ('spotify_uri', 'user', 'text', 'pub_date', 'spotify_uri',)
+    fields = ('id', 'user', 'text', 'pub_date', 'spotify_uri',)

@@ -101,4 +101,8 @@
   <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8" defer></script>
   <script src="{% static "micro/js/music-search.js" %}" type="text/javascript" charset="utf-8" defer></script>
   <script src="{% static "micro/js/overlay.js" %}" type="text/javascript" charset="utf-8"></script>
+
+  <script>
+    var post_list = [{% for post in post_list %}{{post.id}},{% endfor %}];
+  </script>
 {% endblock %}

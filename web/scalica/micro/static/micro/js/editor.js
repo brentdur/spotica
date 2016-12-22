@@ -134,7 +134,55 @@
   }
 })();
 
-function renderPost(post) {
+(function initInfiniteScrolling() {
+  var reachedPageEnd = false;
+
+  window.onscroll = function(e) {
+    const reachedPageEnd = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+    if (reachedPageEnd) queryNextPosts();
+  };
+
+})();
+
+var areMorePosts = true;
+var queryMorePosts = true;
+function queryNextPosts() {
+  if (!areMorePosts || !queryMorePosts) return;
+
+  queryMorePosts = false;
+
+  $.ajax({
+      type: 'GET',
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken'),
+      },
+      // TODO: replace this with a constant
+      url: '/api/v1/posts/query_more?last_id=' + post_list[post_list.length - 1],
+    })
+    .done(function (response, status, jqxhr) {
+      const posts = response;
+
+      if (posts.length === 0) {
+        areMorePosts = false;
+        queryMorePosts = false;
+        return;
+      }
+
+      for (var i = 0; i < posts.length; i++) {
+        renderPost(posts[i], true);
+        post_list.push(posts[i].id);
+      }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.log('We couldn\'t fetch more posts.');
+    })
+    .always(function() {
+      queryMorePosts = true;
+    });
+}
+
+function renderPost(post, addToEnd) {
   /**
    * Expects the post object to be structured as so: {
    *  pub_date
@@ -164,7 +212,7 @@ function renderPost(post) {
 
    const authorName = document.createElement('a');
    authorName.href = '#';
-   console.log(post.user);
+
    authorName.innerHTML = post.user.username;
 
    const postTime = document.createElement('p');
@@ -198,7 +246,7 @@ function renderPost(post) {
    }
 
    // Add post the top of the feed
-   if (posts.firstChild) {
+   if (addToEnd !== true && posts.firstChild) {
     posts.insertBefore(postEl, posts.firstChild);
    } else {
     posts.appendChild(postEl);
