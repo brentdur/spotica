@@ -67,10 +67,13 @@
   const postButton = document.querySelector('.js-editor__submit');
   const inputField = document.getElementById('js-editorInput__field');
 
-  if (!inputField || postButton) return;
+  if (!inputField && !postButton) return;
   postButton.addEventListener('click', submitPost);
 
   function submitPost() {
+    const songChoiceEl = document.querySelector('.songChoice');
+    const isSongPost = songChoiceEl && songChoiceEl.innerHTML !== '';
+
     // Post text is blank & it isn't a song post
     // TODO: Display an error
     if (!inputField.value && !isSongPost) {
@@ -79,8 +82,6 @@
 
     postButton.disabled = true;
 
-    const songChoiceEl = document.querySelector('.songChoice');
-    const isSongPost = songChoiceEl && songChoiceEl.innerHTML !== '';
     const MAX_POST_LEN = 140;
     var currlength = inputField.value.length;
 
