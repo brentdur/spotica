@@ -59,6 +59,10 @@
 {% endblock %}
 
 {% block scripts %}
+  <script>
+    var post_list = [{% for post in post_list %}{{post.id}},{% endfor %}];
+  </script>
+
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src='/static/micro/js/d3.min.js' charset='utf-8'></script>
   <script type="text/javascript" src="/static/micro/js/metricsgraphics.js" charset="utf-8"></script>
@@ -66,4 +70,6 @@
     var file = {{file|safe}};
   </script>
   <script type="text/javascript" src="/static/micro/js/user-sentiment-display.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="{% static "micro/js/editor.js" %}" type="text/javascript" charset="utf-8" defer></script>
+
 {% endblock%}

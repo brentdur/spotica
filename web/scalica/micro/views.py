@@ -65,17 +65,13 @@ def stream(request, user_id):
     print ("post list length = " + str(len(post_list)))
 
     context = {
-        'post_list': post_list[0:10],
+        'post_list': post_list[0:5],
         'post_form': PostForm,
         'file': json.dumps(caching.user_sentiment_json_url(request.user.id)),
         'stream_user': user,
         'form': form
         }
 
-    #
-    # context = {
-    #     'posts': posts,
-    # }
     return render(request, 'micro/stream.html', context)
 
 

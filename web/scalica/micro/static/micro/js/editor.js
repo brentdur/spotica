@@ -3,6 +3,7 @@
   const inputField = document.getElementById('js-editorInput__field');
   const counter = document.getElementById('js-editor__counter');
 
+  if (!inputField) return;
   var wordsPerLine;
 
   inputField.addEventListener('input', function() {
@@ -66,6 +67,7 @@
   const postButton = document.querySelector('.js-editor__submit');
   const inputField = document.getElementById('js-editorInput__field');
 
+  if (!inputField || postButton) return;
   postButton.addEventListener('click', submitPost);
 
   function submitPost() {
