@@ -12,6 +12,8 @@ import spotipy
 from datetime import datetime
 from datetime import timedelta
 
+from django.utils import timezone
+
 # Initialize our django application for this external usage
 from django.conf import settings
 
@@ -58,18 +60,12 @@ def update_global_timeseries():
 
 def get_sentiments(song_array):
 	array_of_sentiments = []
-	count = 0
 	for song in song_array:
 		# convert to regular id from uri
-		spotify_uri = song.spotify_uri
-		spotify_id = re.sub(r'spotify:track:', '', spotify_uri)
 		# cache sentiment
 		#TODO: switch to redis
-		sentiment = caching.check_for_cached_sentiment(spotify_id)
-		if sentiment is None:
-			sentiment = run_analysis_on_song(spotify_id)
+		sentiment = run_analysis_on_song(song.spotify_uri)
 		array_of_sentiments.append(sentiment)
-		count += 1
 	return array_of_sentiments
 
 def get_average_sentiment(sentiment_array):
@@ -87,7 +83,7 @@ def calculate_user_sentiment(user_id):
 	array_of_songs = SongPost.objects.filter(user_id=user_id)
 	array_of_sentiments = get_sentiments(array_of_songs)
 	average_sentiment = get_average_sentiment(array_of_sentiments)
-	count = len(average_sentiment)
+	count = len(array_of_sentiments) 
 	to_add_to_json = {"total": int(count), "sentiment": average_sentiment}
 	data = []
 	path = caching.user_sentiment_json_file(user_id)
@@ -101,7 +97,7 @@ def calculate_user_sentiment(user_id):
 def calculate_hourly_global_sentiment(current=None):
 	# make array of all SongPosts made in the last hour
 	if current is None:
-		now = datetime.now()
+		now = timezone.now()
 	else:
 		now = current
 	startdate = now - timedelta(hours=1, minutes=2)

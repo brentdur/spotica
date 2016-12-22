@@ -35,21 +35,20 @@ for album in albums:
 current = timezone.now() - timedelta(days = 1)
 
 if len(users) > 0:
-	for x in range(0, 7):
+	for x in range(0, 168):
 		freeze_time(current)
-		for y in range(0, 50):
+		for y in range(0, 20):
 			user = random.choice(users)
 			song = random.choice(spotify_track_ids)
 			SongPost.objects.create(user=user, text="blah blah blah", spotify_uri=song)
-		current = current - timedelta(days = 1)
+		current = current - timedelta(hours=1)
 
 
 while current < timezone.now():
-	freeze_time(current)
 
 	tasks.calculate_hourly_global_sentiment(current)
 
-	current = current + timedelta(hours=1)
+	current = current + timedelta(hours=2)
 
 
 
