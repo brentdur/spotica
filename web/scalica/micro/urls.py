@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^home/$', views.home, name='home'),
     url(r'^stream/(?P<user_id>[0-9]+)/$', views.stream, name='stream'),
     url(r'^post/$', views.post, name='post'),
+    url(r'^users/$', views.find_users, name='users'),
     url(r'^follow/$', views.follow, name='follow'),
     url(r'^register/$', views.register, name='register'),
     url(r'^global_sentiment/$', views.global_sentiment, name='global_sentiment'),

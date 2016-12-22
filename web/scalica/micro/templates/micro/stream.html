@@ -9,20 +9,24 @@
 
 {% block sidebar %}
   <img src="{% static "micro/images/user.png" %}" alt="Generic User"/><br>
+
   {{ stream_user.username }}
+
   {% if form %}
-    <form action="/micro/follow/" method="post">
+    <form action="/follow/" method="post">
       {% csrf_token %}
       <input type="hidden" id="id_followee" name="followee" value="{{ stream_user.id }}" />
       <input type="submit" value="Follow" />
     </form>
+  {% else %}
+  <p>Following</p>
   {% endif %}
 {% endblock %}
-
 
 {% block content %}
   <div id="user_sentiment_graph">
   </div>
+
   {% if post_list %}
     <div class="feed__posts">
       {% for post in post_list %}
@@ -48,9 +52,7 @@
     <!-- No posts, so display empty state -->
     <div class="feed__emptyState">
       <div class="emptyState__container">
-        <h2 class="emptyState__title">There are no posts</h2>
-        <p class="emptyState__prompt">Write the first post!</p>
-        <a class="emptyState__suggestion" href="">Find users</a>
+        <h2 class="emptyState__title">{{ stream_user.username }} hasn't posted yet.</h2>
       </div>
     </div>
   {% endif %}

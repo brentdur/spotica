@@ -126,6 +126,10 @@
       var inputEvent = document.createEvent('HTMLEvents');
       inputEvent.initEvent('input', false, true);
       inputField.dispatchEvent(inputEvent);
+
+      // Clear the song choice
+      const songChoiceHolder = document.getElementsByClassName('js-editor__songChoice');
+      songChoiceHolder.innerHTML = '';
     });
   }
 })();

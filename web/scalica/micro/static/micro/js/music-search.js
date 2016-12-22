@@ -85,10 +85,12 @@
       const songChoiceHolders = document.getElementsByClassName('js-editor__songChoice');
 
       for (var i = 0; i < songChoiceHolders.length; i++) {
+        // Clear it in case previous choice was made
+        songChoiceHolders[i].innerHTML = '';
+
         songChoiceHolders[i].appendChild(songChoice);
       }
     };
-
 
     for (var i = 0; i < searchResults.length; i++) {
       const searchResultsEl = searchResults[i];

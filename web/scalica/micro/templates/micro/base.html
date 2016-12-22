@@ -62,9 +62,12 @@
   <footer class="footer">
     &copy; Spotica 2016. Made by Team 2 (Brenton Durkee, Chelsea Valentine, Freia Lobo, and Savannah Lim).
 
-    <div class="footer__links">
-      <a href="/logout">Logout</a>
-    </div>
+    {% if request.user.is_authenticated %}
+      <div class="footer__links">
+        <a href="/users">Find users </a>|
+        <a href="/logout">Logout</a>
+      </div>
+    {% endif %}
 
     {% block footer %}
     {% endblock footer %}
