@@ -6,7 +6,7 @@ from watson_developer_cloud import WatsonException
 class Sentiment(object):
 	def __init__(self, lyrics):
 		self.lyrics = lyrics
-		self.alchemy_language = AlchemyLanguageV1(url='https://access.alchemyapi.com/calls', api_key='ded5d6e8933107f1493d67b1aca33866b9887120')
+		self.alchemy_language = AlchemyLanguageV1(url='https://access.alchemyapi.com/calls', api_key='f47ac0738694dc63eaf8639613633a642c153746')
 
 	def get_sentiment_score(self):
 		combined_operations = ['doc-sentiment']
